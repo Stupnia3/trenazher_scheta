@@ -1,0 +1,20 @@
+@extends('layouts.app')
+
+@section('title')
+    Выбор роли
+@endsection
+
+@section('role')
+    <div class="register_container ">
+        <img src="{{ asset('storage/img/logo.svg') }}" alt="Логотип">
+
+        <div class="all-form_container border_white">
+            <div class="form_container">
+                <a href="{{route('register.student')}}" class="btn-green">Ученик</a>
+                <a href="{{route('register.teacher')}}" class="btn-green">Учитель</a>
+            </div>
+        </div>
+    </div>
+
+
+@endsection

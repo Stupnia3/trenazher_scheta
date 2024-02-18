@@ -1,0 +1,510 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "SourceSansePro";
+}
+
+@font-face {
+    font-family: 'SourceSansePro';
+    src: url('/fonts/SourceSansPro-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+html, body {
+    min-height: 100%;
+}
+body{
+    background-image: url("../storage/img/70039288be60d45837154dcf4eebb3cf.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.container{
+    max-width: 1230px;
+    margin: 0 20px;
+    padding: 0;
+}
+
+.container-min{
+    max-width: 1050px;
+    margin: 0 20px;
+}
+
+.all_blocks {
+    display: flex;
+    justify-content: space-between;
+    max-width: 100vw;
+    padding: 0;
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, p, li, a, .text, label{
+    color: #694A04;
+    font-family: "SourceSansePro";
+    text-decoration: none;
+    font-size:18px;
+
+    transition: all 0.5s ease;
+}
+
+label{
+    margin-bottom: 6px;
+}
+
+h2 {
+    font-family: "SourceSansePro";
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 65px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #FFFFFF;
+    text-shadow: 0px 2px 3px #00000033;
+}
+
+.mg-t110{
+    margin-top: 110px;
+}
+button:focus,
+input[type="button"]:focus,
+input[type="submit"]:focus {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+
+    transition: all 0.5s ease;
+}
+
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+a:hover{
+    opacity: .7;
+}
+
+a:hover{
+    color: #855c06;
+    text-decoration: none;
+}
+.all_blocks {
+    display: flex;
+    min-height: 100vh;
+    height: fit-content;
+}
+
+.border_light{
+    overflow:hidden;
+    position: relative;
+    border-radius: 15px;
+    border: 5px solid rgba(244, 248, 252, 0.7);
+    background-color: rgba(254, 231, 205, 0.8);
+    backdrop-filter: blur(15px);
+}
+
+.border_white{
+    overflow:hidden;
+    position: relative;
+    border-radius: 15px;
+    background: rgba(254, 231, 205, 0.7);
+    border: 5px solid rgba(244, 248, 252, 0.7);
+    backdrop-filter: blur(15px);
+}
+
+.left-block{
+    min-width: 250px;
+    width: 250px;
+    margin: 10px;
+    z-index:1;
+
+
+    transition: all 0.5s ease;
+}
+
+.right-block{
+    min-width: 60px;
+    margin: 10px;
+    z-index:1;
+    overflow:hidden;
+    border-radius: 15px;
+    border: 5px solid rgba(244, 248, 252, 0.7);
+    background-color: rgba(254, 231, 205, 0.8);
+}
+.border_light:before {
+    z-index: -1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: "";
+    background-image: url('../storage/img/51bc0a84c37afbc5c1cfc996730bb442.jpg');
+    background-size: cover;
+    opacity: 0.25;
+    height: 100%;
+    width: 100%;
+}
+
+.left-block nav{
+    height: calc(100% - 20px *2);
+    margin: 0 20px;
+    position: relative;
+}
+
+.all_blocks ul{
+    height: 100%;
+    position: relative;
+    list-style: none;
+}
+
+.all_blocks ul li a{
+    display: flex;
+    align-items: center;
+}
+.left-block .btn-cont{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: inline-block;
+}
+
+.btn-cont button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.btn-cont button img {
+    width: 40px;
+    height: 40px;
+}
+.all_blocks .left-block li:not(:first-child) {
+    margin-top: 30px;
+}
+
+.logo{
+    width: 212px;
+    height: 124px;
+}
+
+
+.all_blocks li p,
+.logo {
+    transition: all 0.5s ease; /* анимация скрытия текста и логотипа */
+}
+
+
+.text-link{
+    display: block;
+    margin: 0 0 0 15px;
+    white-space: nowrap;
+    height: 100%;
+}
+
+.toggleBtn_text{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    bottom: 12px;
+    left: 55px;
+    font-size: 18px;
+    color: #694A04;
+    transition: all 0.5s ease;
+}
+
+.btn-cont{
+    transition: all 0.5s ease;
+}
+.rotated {
+    transition: all 0.5s ease; /* анимация поворота кнопки */
+}
+
+.rotated {
+    transform: rotate(180deg);
+}
+
+.shrunken {
+    max-width: 90px;
+    min-width: 90px;
+    width: 90px;
+}
+
+.hidden {
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+.right-block li:first-child{
+    margin-bottom: 30px;
+}
+
+.right-block li{
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.right-block ul li:last-child{
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
+}
+.right-block nav{
+    height: calc(100% - 5px *2);
+}
+
+
+.avatar_img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+}
+
+.avatar_img img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+.avatar_profile{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+/*контент*/
+
+.games{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.game{
+    position: relative;
+    width: 240px;
+    height: 304px;
+}
+
+.game img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+}
+
+.game a{
+    font-family: "SourceSansePro";
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: center;
+    position: absolute;
+    top: 228px;
+    left: 24px;
+
+    transition: all 0s;
+
+}
+.game a:hover{
+     opacity: 1;
+ }
+.game a:hover .btn_game{
+    box-shadow: 0px 2px 3px 0px #00000033;
+    background: linear-gradient(142.82deg, #97CE4E 11.11%, #58AA2C 83.28%);
+    color: #fff;
+    transition: all 0.2s ease;
+}
+.btn_game{
+    width: 193px;
+    height: 50px;
+    padding: 10px 20px 10px 20px;
+    border-radius: 50px;
+    gap: 10px;
+    box-shadow: 0px 2px 3px 0px #00000033;
+    background-color: #fff;
+    transition: all 0.2s ease;
+}
+
+.border_bals {
+    position: relative;
+    width: fit-content;
+    border-top: 3px solid #694A04;
+    border-bottom: 3px solid #694A04;
+    box-shadow: 0px 4px 5px 0px #0000004D;
+    background-image: url("../storage/img/Rectangle 45.png");
+    background-size: cover;
+    backdrop-filter: brightness(5);
+}
+.game::before,
+.game::after,
+.border_bals::before,
+.border_bals::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(89.97% 63.99% at 53.6% 58.09%, #D49D26 0%, #FAE355 100%);
+    border-radius: 50%;
+}
+
+.border_bals::before {
+    left: -5px;
+    top: -7px;
+}
+
+.border_bals::after {
+    right: -5px;
+    top: -7px;
+}
+
+.game::before{
+    left: -5px;
+    bottom: -7px;
+}
+.game::after{
+    right: -5px;
+    bottom: -7px;
+}
+
+/*регистрация с авторизацией*/
+
+.register_container{
+    max-width: 850px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.register_container img{
+    width: 212px;
+}
+
+.all-form_container{
+    margin-top: 60px;
+    width: 100%;
+    padding: 50px;
+}
+
+.btn-select_form{
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+.btn-select_form a{
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 53px;
+    opacity: .5;
+    text-transform: uppercase;
+}
+.btn-select_form .btn-active_form{
+    opacity: 1;
+}
+.form_container form{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+
+}
+
+.form_container div{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 363px;
+    margin-bottom: 30px;
+}
+.form_container input,
+input:focus,
+input:active,
+input:hover,
+input:disabled {
+    height: 50px;
+    padding: 13px 15px;
+    border-radius: 8px;
+    color: rgba(105, 74, 4, .5) !important;
+    border: 2px solid #694A04;
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(15px);
+}
+
+/*кнопка отправить*/
+
+.btn-green {
+    width: 100%;
+    max-width: 756px;
+    height: 60px;
+    padding: 15px 0;
+    border-radius: 50px;
+    gap: 10px;
+    border: 3px solid gold;
+    background-clip: padding-box;
+    background-color: rgba(151, 206, 78, 1);
+    box-shadow: 0px 25px 0px 0px rgba(255, 255, 255, 0.1) inset;
+}
+
+
+.btn-green p{
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 25px;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    text-shadow: rgba(0, 0, 0, 0.2) 0 2px 3px ;
+    text-transform: uppercase;
+}
+
+
+.form_container div:has(input[type="submit"]){
+    width: 100%;
+}
+.togglePassword {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 15px;
+    bottom: 1px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    background-image: url("../storage/img/eye 1.svg");
+    background-size: cover;
+}
+
+.togglePasswordHide {
+    background-image: url("../storage/img/hidden 1.svg");
+}
+
+#passwordInput {
+    padding-right: 30px; /* Чтобы текст не налезал на иконку */
+}
+
+.return-button{
+    margin: 20px auto 0;
+
+}
+.return-button a{
+    color: rgba(112, 184, 57, 1);
+    font-size: 19px;
+    display: block;
+    text-align: center;
+}
+
+
+/*флэш-анзан*/
+
