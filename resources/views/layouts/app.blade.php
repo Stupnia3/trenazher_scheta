@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="образование, онлайн-обучение, учебные курсы, уроки, школа, университет, изучение, навыки, веб-разработка, программирование, дизайн, маркетинг, английский язык, финансы, искусство, музыка">
+
     <link rel="shortcut icon" href="{{asset('storage/img/logo.svg')}}" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
@@ -10,14 +12,6 @@
     <title>@yield('title')</title>
 </head>
 <body>
-{{--<div class="all_blocks">--}}
-{{--    @include('partials.navigation-left')--}}
-{{--    <div class="container">--}}
-{{--    </div>--}}
-
-{{--    @include('partials.navigation-right')--}}
-{{--</div>--}}
-
 @if(auth()->check())
     @if(auth()->user()->role === \App\Enums\RoleEnum::STUDENT->value)
         <div class="all_blocks">
@@ -26,7 +20,7 @@
                 @yield('content')
             </div>
 
-            @include('partials.navigation-right')
+            @include('partials.navigation-right', ['user' => auth()->user()])
         </div>
     @elseif(auth()->user()->role === \App\Enums\RoleEnum::TEACHER->value)
         <div class="all_blocks">
@@ -35,7 +29,7 @@
                 @yield('content')
             </div>
 
-            @include('partials.navigation-right')
+            @include('partials.navigation-right', ['user' => auth()->user()])
         </div>
     @endif
 @else

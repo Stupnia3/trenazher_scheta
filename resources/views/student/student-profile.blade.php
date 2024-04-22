@@ -8,19 +8,13 @@
 
     <section>
         <div class="profile_block">
-
-
             <div class="avatar">
                 <div class="avatar_img avatar_profile">
-                    <img src="{{ asset('storage/img/090ce25dad60c25fede97b855eea96ef.jpg') }}" alt="Профиль">
+                    <img src="{{ asset('storage/avatars/' . $user->profile_image) }}" alt="Профиль">
                 </div>
             </div>
-
-            <div class="all_students">
-                <a href="">Мои ученики</a>
-            </div>
             <div class="info_profile">
-                <form action="{{ route('profile.update') }}" method="post">
+                <form action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div>
                         <label for="name">Имя</label>
@@ -54,6 +48,17 @@
                         <label for="password">Пароль</label>
                         <input type="password" id="password" name="password" required>
                         <span class="togglePassword"></span>
+                    </div>
+                    <div class="file-input-container">
+                        <input type="file" id="file-input" name="profile_image" accept="image/jpeg, image/png, image/jpg, image/gif, image/webp" style="display: none;">
+                        <label for="file-input" class="custom-file-upload">Выбрать файл</label>
+                        <div id="file-preview" >
+                            <img id="file-img"  src="#" alt="Выбранный файл" style="display: none;">
+                        </div>
+                        <span id="file-name" class="file-name">Файл не выбран</span>
+                        @error('profile_image')
+                        <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
                     <button type="submit" class="btn-green"><p>Подтвердить</p></button>
                 </form>

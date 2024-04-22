@@ -19,8 +19,13 @@ Route::middleware('guest')->group(function () {
         return view('register.register_teacher');
     })->name('register.teacher');
     Route::get('/register/student', function () {
-        return view('register.register_student');
+        // Получаем список всех учителей для передачи в представление
+        $teachers = \App\Models\User::where('role', \App\Enums\RoleEnum::TEACHER->value)->get();
+
+        // Отображаем представление с передачей переменной $teachers
+        return view('register.register_student', ['teachers' => $teachers]);
     })->name('register.student');
+
 });
 
 Route::post('/process-role-choice', [\App\Http\Controllers\RoleController::class, 'processRoleChoice'])->name('process.role.choice');
@@ -41,6 +46,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', 'App\Http\Controllers\ProfileController@show')->name('profile.show');
     Route::post('/profile/update', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 //    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/students', [\App\Http\Controllers\StudentController::class, 'index'])->name('students.index');
+    Route::get('/teacher/students', [\App\Http\Controllers\TeacherController::class, 'showStudents'])->name('teacher.students');
 
 });
 

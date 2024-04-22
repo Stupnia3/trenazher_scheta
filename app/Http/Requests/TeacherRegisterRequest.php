@@ -22,21 +22,36 @@ class TeacherRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'last_name' => ['required', 'string'],
-            'first_name' => ['required', 'string'],
-            'middle_name' => ['nullable', 'string'],
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string', 'confirmed'],
+            'last_name'   => ['required', 'string'],
+            'first_name'  => ['required', 'string'],
+            'middle_name' => ['required', 'string'],
+            'email'       => ['required', 'string', 'email'],
+            'password'    => ['required', 'string', 'confirmed'],
         ];
     }
+
     public function attributes(): array
     {
         return [
-            'last_name' => 'отчество',
-            'first_name' => 'имя',
+            'last_name'   => 'отчество',
+            'first_name'  => 'имя',
             'middle_name' => 'фамилия',
-            'email' => 'почта',
-            'password' => 'пароль',
+            'email'       => 'почта',
+            'password'    => 'пароль',
         ];
     }
+    public function messages()
+    {
+        return [
+            'last_name.required'  => 'Поле "Фамилия" обязательно для заполнения',
+            'first_name.required'  => 'Поле "Имя" обязательно для заполнения',
+            'email.required'  => 'Поле "Email" обязательно для заполнения',
+            'email.email'  => 'Введите корректный адрес электронной почты',
+            'email.unique'  => 'Пользователь с таким email уже зарегистрирован',
+            'password.required'  => 'Поле "Пароль" обязательно для заполнения',
+            'password.min'  => 'Пароль должен содержать минимум :min символов',
+            'password.confirmed'  => 'Пароль и подтверждение пароля не совпадают',
+        ];
+    }
+
 }

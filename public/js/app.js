@@ -412,7 +412,6 @@ class Train {
         this.interval = setInterval(() => {
             this.counter_images[this.counter + 1].style.display = 'none'
             if (this.counter >= 0) {
-                audio.play()
                 this.counter_images[this.counter].style.display = 'block'
                 this.counter--;
 

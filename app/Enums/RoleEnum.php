@@ -14,7 +14,7 @@ enum RoleEnum: string
         $array = [
             self::STUDENT->value => 'Студент',
             self::TEACHER->value => 'Преподаватель',
-            self::ADMIN->value => 'Администратор',
+            self::ADMIN->value   => 'Администратор',
         ];
         return $array[$role->value];
     }

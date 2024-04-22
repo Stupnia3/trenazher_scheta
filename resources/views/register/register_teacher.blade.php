@@ -15,7 +15,7 @@
                 <a href="#" class="btn-active_form">Регистрация</a>
             </div>
             <div class="form_container">
-                <form action="{{route('registration.teacher')}}" method="post">
+                <form action="{{route('registration.teacher')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div>
                         <label for="name">Имя</label>
@@ -43,7 +43,19 @@
                         <input type="password" id="confirm_password" name="password_confirmation" required>
                         <span class="togglePassword"></span>
                     </div>
-                        <button type="submit" class="btn-green"><p>Подтвердить</p></button>
+                    <div class="file-input-container">
+                        <input type="file" id="file-input" name="profile_image" accept="image/jpeg, image/png, image/jpg, image/gif, image/webp" style="display: none;">
+                        <label for="file-input" class="custom-file-upload">Выбрать файл</label>
+                        <div id="file-preview" >
+                            <img id="file-img"  src="#" alt="Выбранный файл" style="display: none;">
+                        </div>
+                        <span id="file-name" class="file-name">Файл не выбран</span>
+                        @error('profile_image')
+                        <span class="error">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <input type="hidden" name="teacher_id" value="{{ Auth::check() ? Auth::id() : '' }}">
+                    <button type="submit" class="btn-green"><p>Подтвердить</p></button>
                 </form>
             </div>
             <div class="return-button">

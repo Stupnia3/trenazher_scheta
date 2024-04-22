@@ -6,9 +6,9 @@
                 <a href="{{route('profile.show')}}" class="avatar_img">
                         @if(auth()->check())
                             @if(auth()->user()->role === \App\Enums\RoleEnum::STUDENT->value)
-                                <img src="{{ asset('storage/img/090ce25dad60c25fede97b855eea96ef.jpg') }}" alt="Профиль">
+                            <img src="{{ asset('storage/avatars/' . $user->profile_image) }}" alt="Профиль">
                             @elseif(auth()->user()->role === \App\Enums\RoleEnum::TEACHER->value)
-                                <img src="{{asset('storage/img/5671246976c3f735d4528e2d3d1bdf71.jpg')}}" alt="Профиль">
+                            <img src="{{ asset('storage/avatars/' . $user->profile_image) }}" alt="Профиль">
                             @endif
                         @else
                             @yield('role')
