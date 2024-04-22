@@ -518,7 +518,6 @@ input:disabled {
 
 
 /*кнопка отправить*/
-
 .btn-green {
     width: 100%;
     max-width: 756px;
@@ -693,5 +692,5 @@ input:disabled {
     position: absolute;
     font-size: 12px;
     color: red;
-    top: 85px; /* Расположение под полем ввода */
+    top: 84px;
 }
