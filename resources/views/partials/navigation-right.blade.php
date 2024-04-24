@@ -15,7 +15,7 @@
                         @endif
                 </a>
             </li>
-            <li><a href="/add_child"><img src="{{asset('storage/img/icon (10).svg')}}" alt="Добавить ученика"></a></li>
+            <li><a href="{{ route('showAllStudents') }}"><img src="{{asset('storage/img/icon (10).svg')}}" alt="Добавить ученика"></a></li>
             <li><a href="/settings"><img src="{{asset('storage/img/icon (9).svg')}}" alt="Настройки"></a></li>
             <li class="exit"><a href="{{route('logout')}}"><img src="{{asset('storage/img/icon (11).svg')}}" alt="Выход"></a></li>
         </ul>

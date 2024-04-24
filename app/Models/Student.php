@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
+
 /**
- * 
+ *
  *
  * @property-read \App\Models\User|null $teacher
  * @method static \Illuminate\Database\Eloquent\Builder|Student newModelQuery()
@@ -18,7 +19,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Student extends Model
 {
-    protected $table = 'user'; // Указываем таблицу, с которой связана модель
+    use HasFactory;
+
+    protected $table = 'users'; // Указываем таблицу, с которой связана модель
 
     protected $fillable = [
         'name', 'email', // Здесь перечислите все поля, которые вы хотите разрешить для массового заполнения

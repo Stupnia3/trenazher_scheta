@@ -206,9 +206,9 @@
             <button class="training_button start">СТАРТ</button>
         </div>
         <div class="training_starting_counter">
-            <img src="images/dest/step1.jpg" alt="" />
-            <img src="images/dest/step2.jpg" alt="" />
-            <img src="images/dest/step3.jpg" alt="" />
+{{--            <img src="images/dest/step1.jpg" alt="" />--}}
+{{--            <img src="images/dest/step2.jpg" alt="" />--}}
+{{--            <img src="images/dest/step3.jpg" alt="" />--}}
         </div>
         <div class="training_numbers">
             <p class="training_number">1</p>
@@ -317,4 +317,5 @@
     </div>
 </div>
 
+<script src="{{asset('js/app.js')}}"></script>
 @endsection

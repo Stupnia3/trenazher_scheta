@@ -248,49 +248,49 @@ class Train {
 
     }
     showStatistic() {
-        this.statistic_container.style.display = 'flex'
-        this.statistic_container.querySelector('.training_details').style.display = "none"
+        this.statistic_container.style.display = 'flex';
+        this.statistic_container.querySelector('.training_details').style.display = "none";
         let right = this.results.reduce((prev, a) => {
             if (a.result) {
-                return prev + 1
+                return prev + 1;
             } else {
-                return prev
+                return prev;
             }
-        }, 0)
-        let err = this.setting.examples.value - right
-        document.querySelector('#right').textContent = right
-        document.querySelector('#error').textContent = err
-        let temp = document.querySelector('#template')
-        let item = temp.content.querySelector('.training_details-item')
-        this.stat_details.style.display = 'none'
+        }, 0);
+        let err = this.setting.examples.value - right;
+        document.querySelector('#right').textContent = right;
+        document.querySelector('#error').textContent = err;
+        let temp = document.querySelector('#template');
+        let item = temp.content.querySelector('.training_details-item');
+        this.stat_details.style.display = 'none';
         this.stat_details.querySelectorAll('.training_details-item').forEach(el => {
-            el.remove()
-        })
-        this.details_button.textContent = 'Подробнее'
-        this.stat_open = false
+            el.remove();
+        });
+        this.details_button.textContent = 'Подробнее';
+        this.stat_open = false;
         let res = {};
         historyGame.res = [];
         historyGame.speed = this.setting.speed.value;
         if (this.mode == 'flash') {
-            historyGame.mode = 'Флешкарты'
+            historyGame.mode = 'Флешкарты';
         } else {
-            historyGame.mode = 'Обычный'
+            historyGame.mode = 'Обычный';
         }
         switch (this.setting.rules.value) {
             case 1:
-                historyGame.rule = 'Просто'
+                historyGame.rule = 'Просто';
                 break;
             case 2:
-                historyGame.rule = 'Братья'
+                historyGame.rule = 'Братья';
                 break;
             case 3:
-                historyGame.rule = 'Друзья'
+                historyGame.rule = 'Друзья';
                 break;
             case 4:
-                historyGame.rule = 'Анзан'
+                historyGame.rule = 'Анзан';
                 break;
         }
-        historyGame.capasity = this.setting.bitness.value
+        historyGame.capasity = this.setting.bitness.value;
         this.results.forEach((el, ind) => {
             res = {};
             res.answer = el.answer;
@@ -298,28 +298,52 @@ class Train {
 
             historyGame.res.push(res);
 
-
-            let res_item = document.importNode(item, true)
-            res_item.querySelector('.ynumber').textContent = el.answer
+            let res_item = document.importNode(item, true);
+            res_item.querySelector('.ynumber').textContent = el.answer;
 
             if (!el.result) {
-                res_item.querySelector('.ynumber').classList.add('error')
+                res_item.querySelector('.ynumber').classList.add('error');
             }
-            res_item.querySelector('.rnumber').textContent = el.right
-            let digs = '<table>'
+            res_item.querySelector('.rnumber').textContent = el.right;
+            let digs = '<table>';
             for (let i = 0; i < this.setting.action_count.value; i += 8) {
-                digs += '<tr>'
+                digs += '<tr>';
                 this.numbers_array[ind].slice(i, i + 8).forEach(el1 => {
-                    digs += `<td>${el1}</td>`
-                })
-                digs += '</tr>'
+                    digs += `<td>${el1}</td>`;
+                });
+                digs += '</tr>';
             }
-            digs += '</table>'
-            res_item.querySelector('.digits').innerHTML = digs
-            this.stat_details.appendChild(res_item)
-        })
+            digs += '</table>';
+            res_item.querySelector('.digits').innerHTML = digs;
+            this.stat_details.appendChild(res_item);
+        });
+
         console.log(historyGame);
+
+        // Отправка результатов игры на сервер
+        fetch('/saveGameResult', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Дополнительные заголовки, если необходимо
+            },
+            body: JSON.stringify({
+                username: localStorage.getItem('username'), // Получаем имя пользователя из localStorage
+                correct_answers: right, // Правильные ответы
+                incorrect_answers: err, // Неправильные ответы
+                game_mode: historyGame.mode, // Режим игры, возможно, вам нужно будет настроить это в соответствии с вашим кодом
+                // Другие данные, которые нужно сохранить
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message); // Выводим сообщение об успешном сохранении
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
     }
+
     changeSetting(propname, val) {
         let setting = this.setting[propname]
         if (val == "") {
@@ -402,17 +426,17 @@ class Train {
     startingTraining() {
         this.setting_container.style.display = 'none'
         this.counter_container.style.display = 'flex'
-        this.counter_images = this.counter_container.querySelectorAll('img')
-        this.counter_images[2].style.display = 'block'
-        document.querySelector('#tick').play()
+        // this.counter_images = this.counter_container.querySelectorAll('img')
+        // this.counter_images[2].style.display = 'block'
+        // document.querySelector('#tick').play()
         this.results = []
         this.answer = null
         this.generateNumbers()
         let audio = document.querySelector('#tick')
         this.interval = setInterval(() => {
-            this.counter_images[this.counter + 1].style.display = 'none'
+            // this.counter_images[this.counter + 1].style.display = 'none'
             if (this.counter >= 0) {
-                this.counter_images[this.counter].style.display = 'block'
+                // this.counter_images[this.counter].style.display = 'block'
                 this.counter--;
 
             } else {
@@ -421,7 +445,7 @@ class Train {
                 clearInterval(this.interval)
 
             }
-        }, 1000)
+        }, 0)
     }
     getNumberWithoutRules(num, is_five = false) {
         num = Math.abs(num).toString()

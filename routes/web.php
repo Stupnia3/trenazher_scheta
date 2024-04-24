@@ -48,6 +48,11 @@ Route::middleware('auth')->group(function () {
 //    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/students', [\App\Http\Controllers\StudentController::class, 'index'])->name('students.index');
     Route::get('/teacher/students', [\App\Http\Controllers\TeacherController::class, 'showStudents'])->name('teacher.students');
+    Route::post('/toggleActivation/{user}', [\App\Http\Controllers\StudentController::class, 'toggleActivation'])->name('toggleActivation');
+    Route::post('/detachTeacher/{user}', [\App\Http\Controllers\StudentController::class, 'detachTeacher'])->name('detachTeacher');
+    Route::get('/all-students', [\App\Http\Controllers\StudentController::class, 'showAllStudents'])->name('showAllStudents');
+    Route::post('/add-student', [\App\Http\Controllers\StudentController::class, 'addStudent'])->name('addStudent');
+    Route::post('/saveGameResult', [\App\Http\Controllers\GameController::class, 'saveGameResult']);
 
 });
 

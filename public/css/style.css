@@ -74,7 +74,7 @@ input[type="submit"]:focus {
     -moz-appearance: none;
     border: none;
     outline: none;
-    background-color: transparent;
+    /*background-color: transparent;*/
     padding: 0;
     margin: 0;
     cursor: pointer;
@@ -624,7 +624,8 @@ input:disabled {
     width: 100%;
     margin-top: 100px;
     background: rgba(254, 231, 205, 0.7);
-    border: 5px solid rgba(244, 248, 252, 0.7)
+    border: 5px solid rgba(244, 248, 252, 0.7);
+    border-radius: 5px;
 }
 
 .avatar_profile{
@@ -694,3 +695,144 @@ input:disabled {
     color: red;
     top: 84px;
 }
+
+
+.page_title{
+    width: fit-content;
+    height: fit-content;
+    font-family: "SourceSansePro";
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 52.79px;
+    text-align: left;
+    position: absolute;
+    left: 50px;
+    top: -50px;
+    z-index: 10;
+}
+.page_title .game{
+    width: fit-content;
+    height: fit-content;
+    padding: 15px 20px;
+}
+
+.navigation_top{
+    position: absolute;
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    right: 50px;
+    top: -20px;
+    z-index: 10;
+}
+
+.navigation_top a:first-child{
+    margin-right: 20px;
+}
+
+.table_container{
+    margin: 80px 50px;
+}
+.all_students_table{
+    width: 100%;
+}
+table{
+    font-family: "SourceSansePro";
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20.11px;
+    text-align: left;
+    color: rgba(105, 74, 4, 1);
+}
+
+thead th{
+    padding: 20px 15px;
+}
+tbody tr:nth-child(odd){
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+tbody td:first-child{
+}
+tbody td{
+    padding: 10px 15px;
+}
+
+tbody td:first-child div:first-child{
+    margin-right: 15px;
+}
+tbody td:last-child{
+}
+.flex{
+    display: flex;
+    align-items: center;
+}
+tbody td:last-child form:first-child{
+    margin-right: 20px;
+}
+.avatar_student{
+    position: static;
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(244, 248, 252, 1);
+}
+
+.btn_status {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    border-radius: 550px;
+    border: 0px;
+    overflow: hidden;
+    transition: background-color 0.3s ease; /* Добавляем анимацию для изменения цвета фона */
+}
+
+.active {
+    background: rgba(112, 184, 57, 1); /* Зеленый цвет для активного статуса */
+}
+
+.inactive {
+    background: rgba(255, 87, 34, 1); /* Красный цвет для неактивного статуса */
+}
+
+.circle {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 3px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 50%;
+    transition: transform 0.3s ease, left 0.3s ease; /* Добавляем анимацию для плавного перемещения и изменения позиции круга */
+}
+
+.active .circle {
+    left: 33px; /* Позиция круга справа для активного статуса */
+}
+
+.inactive .circle {
+    left: 3px; /* Позиция круга слева для неактивного статуса */
+}
+
+.btn_delete_user{
+    border: 0px;
+    overflow: hidden;
+    background: none;
+}
+.btn_delete_user img{
+    width: 20px;
+    height: 20px;
+}
+.addStudentButton:focus{
+    margin-left: 20px;
+}
+.addStudentButton{
+    border: 0px;
+    background: none;
+    margin-left: 20px;
+}
+.addStudentButton img{
+    width: 40px;
+    height: 40px;
+}
+
+

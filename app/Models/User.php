@@ -76,6 +76,7 @@ class User extends Authenticatable
         'parent_surname',
         'phone',
         'profile_image',
+        'status',
     ];
 
     /**
@@ -94,6 +95,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'status' => 'string',
     ];
 
     /**

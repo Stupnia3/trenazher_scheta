@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="образование, онлайн-обучение, учебные курсы, уроки, школа, университет, изучение, навыки, веб-разработка, программирование, дизайн, маркетинг, английский язык, финансы, искусство, музыка">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="shortcut icon" href="{{asset('storage/img/logo.svg')}}" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -36,7 +37,6 @@
     @yield('role')
 @endif
 
-<script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('js/script.js')}}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="{{asset('jquery.mask.js')}}"></script>
