@@ -430,6 +430,7 @@ a:hover{
     width: 363px;
     margin-bottom: 30px;
 }
+.input_setting,
 .form_container input,
 .profile_block input,
 input:focus,
@@ -835,4 +836,30 @@ tbody td:last-child form:first-child{
     height: 40px;
 }
 
+/*настройки игры*/
 
+.training_wrapper{
+    width: 1034px;
+    margin: 80px 50px;
+    min-height: 50vh;
+    padding: 0;
+}
+
+.training_start{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-size: cover;
+    padding: 0;
+    background: none;
+}
+.training_settings {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -20px;
+    margin-right: -20px;
+    max-width: none;
+    width: 100%;
+    justify-content: center;
+}

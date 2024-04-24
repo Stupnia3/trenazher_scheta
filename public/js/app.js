@@ -402,17 +402,17 @@ class Train {
     startingTraining() {
         this.setting_container.style.display = 'none'
         this.counter_container.style.display = 'flex'
-        // this.counter_images = this.counter_container.querySelectorAll('img')
-        // this.counter_images[2].style.display = 'block'
-        // document.querySelector('#tick').play()
+        this.counter_images = this.counter_container.querySelectorAll('img')
+        this.counter_images[2].style.display = 'block'
+        document.querySelector('#tick').play()
         this.results = []
         this.answer = null
         this.generateNumbers()
         let audio = document.querySelector('#tick')
         this.interval = setInterval(() => {
-            // this.counter_images[this.counter + 1].style.display = 'none'
+            this.counter_images[this.counter + 1].style.display = 'none'
             if (this.counter >= 0) {
-                // this.counter_images[this.counter].style.display = 'block'
+                this.counter_images[this.counter].style.display = 'block'
                 this.counter--;
 
             } else {
@@ -421,7 +421,7 @@ class Train {
                 clearInterval(this.interval)
 
             }
-        }, 0)
+        }, 1)
     }
     getNumberWithoutRules(num, is_five = false) {
         num = Math.abs(num).toString()

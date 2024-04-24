@@ -8,8 +8,8 @@
 
     <link rel="shortcut icon" href="{{asset('storage/img/logo.svg')}}" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <title>@yield('title')</title>
 </head>
 <body>
