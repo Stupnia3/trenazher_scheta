@@ -52,7 +52,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/detachTeacher/{user}', [\App\Http\Controllers\StudentController::class, 'detachTeacher'])->name('detachTeacher');
     Route::get('/all-students', [\App\Http\Controllers\StudentController::class, 'showAllStudents'])->name('showAllStudents');
     Route::post('/add-student', [\App\Http\Controllers\StudentController::class, 'addStudent'])->name('addStudent');
+    Route::get('/load-students',  [\App\Http\Controllers\StudentController::class, 'loadStudents'])->name('loadStudents');
     Route::post('/saveGameResult', [\App\Http\Controllers\GameController::class, 'saveGameResult']);
+    Route::get('/load-all-students', [\App\Http\Controllers\StudentController::class, 'loadAllStudents'])->name('loadAllStudents');
+
 
 });
 

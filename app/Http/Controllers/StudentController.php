@@ -6,16 +6,18 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\Student;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
 
 
 class StudentController extends Controller
 {
+    // Методы index, toggleActivation, detachTeacher, showAllStudents, addStudent, loadAllStudents и loadStudents остаются без изменений
+
     public function index()
     {
-        // Получаем всех студентов
-        $students = User::whereRole('student')->get();
-
-        return view('teacher.students', ['students' => $students]);
+        $students = User::whereRole('student')->paginate(10);
+        return view('teacher.add', ['students' => $students]);
     }
 
     public function toggleActivation(User $user): JsonResponse
@@ -25,6 +27,7 @@ class StudentController extends Controller
 
         return response()->json(['status' => $user->status]);
     }
+
     public function detachTeacher(User $user)
     {
         // Обновляем teacher_id на null
@@ -39,7 +42,7 @@ class StudentController extends Controller
 
     public function showAllStudents()
     {
-        $students = User::whereRole('student')->get();
+        $students = User::whereRole('student')->paginate(10);
         return view('teacher.add', ['students' => $students]);
     }
 
@@ -78,6 +81,40 @@ class StudentController extends Controller
         }
     }
 
+    public function loadStudents(Request $request)
+    {
+        // Получаем поисковый запрос из запроса
+        $search = $request->input('search');
 
+        // Запрос на получение студентов
+        $query = User::whereRole('student');
+
+        // Применяем поиск, если он задан
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('first_name', 'like', '%' . $search . '%')
+                    ->orWhere('last_name', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Получаем данные о странице и количестве элементов на странице
+        $page = $request->input('page', 1);
+        $perPage = $request->input('perPage', 10);
+
+        // Загружаем студентов с учетом страницы и количества элементов на странице
+        $students = $query->paginate($perPage, ['*'], 'page', $page);
+
+        // Возвращаем данные в формате JSON
+        return response()->json($students);
+    }
+
+
+    // Метод loadAllStudents остается без изменений
+    public function loadAllStudents()
+    {
+        $students = Student::all();
+        return response()->json($students);
+    }
 }
+
 
