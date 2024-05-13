@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('phone')->unique()->nullable();
             $table->string('last_name')->nullable();
             $table->string('email')->unique();
+            $table->string('login')->unique(); // Добавлено новое поле 'login'
             $table->date('date_birth')->nullable();
             $table->string('password');
             $table->enum('role', ['student', 'teacher', 'admin']);

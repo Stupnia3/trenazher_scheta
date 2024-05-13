@@ -10,15 +10,22 @@ class AuthController extends Controller
 {
     public function index()
     {
-        // view с авторизацией
+        // Вид с формой авторизации
     }
 
     public function login(Request $request)
     {
-        $credentials = $request->only(['email', 'password']);
+        $credentials = $request->only(['login', 'password']);
 
         if (Auth::attempt($credentials, true)) {
-            return redirect()->route('home');
+            // Проверяем статус пользователя после успешной аутентификации
+            $user = Auth::user();
+            if ($user->status == 'not_active') {
+                Auth::logout(); // Если статус "not_active", разлогиниваем пользователя
+                return redirect()->back()->with('error', 'Ваша учетная запись неактивна. Обратитесь к учителю.');
+            }
+
+            return redirect()->route('home'); // Вход выполнен успешно
         }
 
         return redirect()->back()->with('error', 'Неправильная почта или пароль');

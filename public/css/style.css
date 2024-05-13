@@ -867,3 +867,24 @@ tbody td:last-child form:first-child{
 
 .search_container{
 }
+
+.add_students{
+    padding: 5px 50px;
+    font-size: 16px;
+}
+
+.file-input-add{
+    width: fit-content;
+}
+
+.btn_add_students{
+    cursor: pointer;
+}
+.btn_submit_add{
+
+}
+.form_add_students{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}

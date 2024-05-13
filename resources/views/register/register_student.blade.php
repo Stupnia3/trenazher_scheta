@@ -45,6 +45,14 @@
                         <span class="error">{{ $message }}</span>
                         @enderror
                     </div>
+
+                    <div>
+                        <label for="login">Логин</label>
+                        <input type="text" id="login" name="login" placeholder="Введите ваш логин" required>
+                        @error('email')
+                        <span class="error">{{ $message }}</span>
+                        @enderror
+                    </div>
                     <div>
                         <label for="name_parent">Имя родителя</label>
                         <input type="text" id="name_parent" name="parent_name" placeholder="Введите имя родителя" required>

@@ -45,6 +45,10 @@
                         <input type="tel" id="phone_parent" name="phone" placeholder="Телефон родителя" value="{{ $user->phone }}" required>
                     </div>
                     <div>
+                        <label for="login">Логин</label>
+                        <input type="text" id="login" name="login" placeholder="Введите ваш логин" value="{{ $user->login }}" required>
+                    </div>
+                    <div>
                         <label for="password">Пароль</label>
                         <input type="password" id="password" name="password" required>
                         <span class="togglePassword"></span>

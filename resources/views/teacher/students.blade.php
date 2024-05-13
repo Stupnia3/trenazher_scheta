@@ -10,10 +10,55 @@
                 <a href="{{ url()->previous() }}">
                     <img src="{{ asset('storage/img/back.svg') }}" alt="Назад">
                 </a>
-                <a href="{{ route('showAllStudents') }}"><img src="{{asset('storage/img/add.svg')}}" alt="Добавить ученика"></a>
+                <a href="{{ route('showAllStudents') }}"><img src="{{asset('storage/img/add.svg')}}"
+                                                              alt="Добавить ученика"></a>
+            </div>
+            <div class="table_container">
+                <!-- Добавляем кнопку для загрузки шаблона Excel файла -->
+                <div class="add_students_form flex">
+
+                    <a href="{{ route('downloadTemplate') }}" class="btn-student add_students">Скачать шаблон
+                        Excel</a>
+
+                    <!-- Добавляем кнопку для загрузки заполненного Excel файла -->
+                    <form action="{{ route('uploadExcel') }}" method="POST" enctype="multipart/form-data"
+                          id="excelForm" class="form_add_students">
+                        @csrf
+                        <label for="file-input" class="file-input-add btn-teacher add_students btn_add_students">Выбрать файл</label>
+                        <input type="file" name="filled-file" id="filled-file" accept=".xlsx,.xls"
+                               style="display: none">
+                        <button type="submit" class="btn_submit_add">Загрузить заполненный Excel</button>
+                    </form>
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {!! session('success') !!}
+                        </div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                </div>
+                <h2>Список файлов</h2>
+                @if ($files->isEmpty())
+                    <p>У вас пока нет загруженных файлов.</p>
+                @else
+                <ul>
+                    @foreach ($files as $file)
+                        <li>
+                            <a href="{{ route('downloadFile', $file->id) }}">{{ $file->name }}</a>
+                        </li>
+                    @endforeach
+                </ul>
+                @endif
             </div>
             @if ($students->isEmpty())
-                <p>У вас пока нет учеников.</p>
+                <div class="table_container">
+                    <p>У вас пока нет учеников.</p>
+                </div>
             @else
                 <div class="table_container">
                     <table class="all_students_table">
@@ -56,15 +101,18 @@
                                             @method('POST')
                                             <input type="hidden" name="activation"
                                                    value="{{ $student->status === 'active' ? 'not_active' : 'active' }}">
-                                            <button type="button" class="btn_status {{ $student->status === 'active' ? 'active' : 'inactive' }}" onclick="toggleActivation(event, {{$student->id}})">
+                                            <button type="button"
+                                                    class="btn_status {{ $student->status === 'active' ? 'active' : 'inactive' }}"
+                                                    onclick="toggleActivation(event, {{$student->id}})">
                                                 <div class="circle"></div>
                                             </button>
                                         </form>
                                         <form class="detach-teacher-form">
                                             @csrf
                                             @method('POST')
-                                            <button class="btn_delete_user" type="button" class="detach_button" onclick="detachTeacher(event, {{$student->id}})">
-                                                <img  src="{{ asset('storage/img/trash.svg') }}">
+                                            <button class="btn_delete_user" type="button" class="detach_button"
+                                                    onclick="detachTeacher(event, {{$student->id}})">
+                                                <img src="{{ asset('storage/img/trash.svg') }}">
                                             </button>
                                         </form>
                                     </div>
@@ -124,6 +172,7 @@
                     console.error('Ошибка при отправке запроса', error);
                 });
         }
+
         function detachTeacher(event, studentId) {
             event.preventDefault(); // Предотвращаем стандартное действие кнопки
 
@@ -134,7 +183,7 @@
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },
-                body: JSON.stringify({ teacherId: null }) // Отправляем null в качестве нового значения teacherId
+                body: JSON.stringify({teacherId: null}) // Отправляем null в качестве нового значения teacherId
             })
                 .then(response => {
                     // Обработка успешного ответа
@@ -163,10 +212,9 @@
                 });
         }
 
-
+        function uploadFilled() {
+            document.querySelector('form[action="{{ route('uploadExcel') }}"]').submit();
+        }
     </script>
-
-
-
 @endsection
 

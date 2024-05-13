@@ -14,11 +14,17 @@
                 <a href="{{route('login')}}" class="btn-active_form">Вход</a>
                 <a href="/">Регистрация</a>
             </div>
+
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
             <div class="form_container">
                 <form action="{{route('auth')}}" method="post">
                     <div>
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" name="email" placeholder="Введите ваш e-mail" required>
+                        <label for="login">Логин</label>
+                        <input type="text" id="login" name="login" placeholder="Введите ваш логин" required>
                     </div>
                     <div>
                         <label for="password">Пароль</label>

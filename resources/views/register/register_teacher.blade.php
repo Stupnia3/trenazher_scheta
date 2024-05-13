@@ -34,6 +34,10 @@
                         <input type="email" id="email" name="email" placeholder="Введите ваш e-mail" required>
                     </div>
                     <div>
+                        <label for="login">Логин</label>
+                        <input type="text" id="login" name="login" placeholder="Введите ваш логин" required>
+                    </div>
+                    <div>
                         <label for="password">Пароль</label>
                         <input type="password" id="password" name="password" required>
                         <span class="togglePassword"></span>

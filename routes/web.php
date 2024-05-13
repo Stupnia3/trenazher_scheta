@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\StudentMiddleware;
+use App\Http\Middleware\TeacherMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,7 +48,15 @@ Route::middleware('auth')->group(function () {
     })->name('flash-anzan');
     Route::get('/profile', 'App\Http\Controllers\ProfileController@show')->name('profile.show');
     Route::post('/profile/update', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/saveGameResult', [\App\Http\Controllers\GameController::class, 'saveGameResult']);
 //    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    });
+
+Route::middleware(['auth', StudentMiddleware::class])->group(function () {
+
+});
+
+Route::middleware(['auth', TeacherMiddleware::class])->group(function () {
     Route::get('/students', [\App\Http\Controllers\StudentController::class, 'index'])->name('students.index');
     Route::get('/teacher/students', [\App\Http\Controllers\TeacherController::class, 'showStudents'])->name('teacher.students');
     Route::post('/toggleActivation/{user}', [\App\Http\Controllers\StudentController::class, 'toggleActivation'])->name('toggleActivation');
@@ -53,13 +64,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/all-students', [\App\Http\Controllers\StudentController::class, 'showAllStudents'])->name('showAllStudents');
     Route::post('/add-student', [\App\Http\Controllers\StudentController::class, 'addStudent'])->name('addStudent');
     Route::get('/load-students',  [\App\Http\Controllers\StudentController::class, 'loadStudents'])->name('loadStudents');
-    Route::post('/saveGameResult', [\App\Http\Controllers\GameController::class, 'saveGameResult']);
     Route::get('/load-all-students', [\App\Http\Controllers\StudentController::class, 'loadAllStudents'])->name('loadAllStudents');
 
-
+    Route::get('/download-template', 'App\Http\Controllers\TeacherController@downloadTemplate')->name('downloadTemplate');
+    Route::post('/uploadExcel', [\App\Http\Controllers\TeacherController::class, 'uploadExcel'])->name('uploadExcel');
+    Route::get('/downloadStudents', 'App\Http\Controllers\TeacherController@downloadStudents')->name('download.students');
+    Route::get('/download-file/{file}', 'App\Http\Controllers\TeacherController@download')->name('downloadFile');
 });
 
+Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 
+});
 
 
 Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');

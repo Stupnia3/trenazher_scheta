@@ -42,6 +42,10 @@
                         <input type="email" id="email" name="email" placeholder="Введите ваш e-mail" value="{{ $user->email }}" required>
                     </div>
                     <div>
+                        <label for="login">Логин</label>
+                        <input type="text" id="login" name="login" placeholder="Введите ваш логин" value="{{ $user->login }}" required>
+                    </div>
+                    <div>
                         <label for="password">Пароль</label>
                         <input type="password" id="password" name="password" required>
                         <span class="togglePassword"></span>
