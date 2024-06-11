@@ -62,7 +62,16 @@ h2 {
     color: #FFFFFF;
     text-shadow: 0px 2px 3px #00000033;
 }
-
+h1 {
+    font-family: "SourceSansePro";
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 65px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #694A04;
+    text-shadow: 0px 2px 3px #00000033;
+}
 .mg-t110{
     margin-top: 110px;
 }
@@ -887,4 +896,32 @@ tbody td:last-child form:first-child{
     display: flex;
     flex-direction: column;
     margin-left: 20px;
+}
+
+/*для столбцов*/
+
+
+.number, .answer {
+    display: block;
+    margin: 5px 0;
+    text-align: center;
+}
+
+input.answer {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.correct {
+    background-color: #c8e6c9;
+}
+
+.incorrect {
+    background-color: #ffcdd2;
+}
+
+.solution {
+    color: blue;
+    margin-top: 5px;
 }

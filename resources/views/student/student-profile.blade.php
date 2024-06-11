@@ -84,4 +84,6 @@
 
     </section>
 
+
+    <script src="{{asset('js/validate.js')}}"></script>
 @endsection

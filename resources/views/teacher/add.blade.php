@@ -28,44 +28,44 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach ($students as $student)
-                            <tr id="student-row-{{$student->id}}">
-                                <td>
-                                    <div class="flex">
-                                        <div class="avatar_img avatar_profile avatar_student">
-                                            <img src="{{ asset('storage/avatars/' . $student->profile_image) }}" alt="Профиль">
-                                        </div>
-                                        <div>{{ $student->last_name }} {{ $student->first_name }}</div>
-                                    </div>
-                                </td>
-                                <td>
-                    <span id="status-span-{{$student->id}}" class="{{ $student->status === 'active' ? 'text-success' : 'text-danger' }}">
-                        {{ $student->status === 'active' ? 'Активен' : 'Неактивен' }}
-                    </span>
-                                </td>
-                                <td>{{ $student->flash_anzan_score }}</td>
-                                <td>{{ $student->flash_cards_score }}</td>
-                                <td>
-                                    <div class="flex">
-                                        <form class="addStudentForm" action="{{ route('addStudent') }}" method="post">
-                                            @csrf
-                                            <input type="hidden" name="teacher_id" value="{{ auth()->user()->id }}">
-                                            <input type="hidden" name="student_id" value="{{ $student->id }}">
-                                            @if ($student->teacher_id) <!-- Проверяем, что ученик привязан к учителю -->
-                                            @if ($student->teacher_id == auth()->user()->id)
-                                                Привязан к вам
-                                            @else
-                                                <span style="color: red;">Привязан</span>
-                                            @endif
-                                            @else
-                                                <button type="submit" class="addStudentButton"><img src="{{ asset('storage/img/add.svg') }}" alt="Добавить"></button>
-                                                <span class="addedMessage" style="display: none;">Привязан</span>
-                                            @endif
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                    @endforeach
+@foreach ($students as $student)
+        <tr id="student-row-{{$student->id}}">
+            <td>
+                <div class="flex">
+                    <div class="avatar_img avatar_profile avatar_student">
+                        <img src="{{ asset('storage/avatars/' . $student->profile_image) }}" alt="Профиль">
+                    </div>
+                    <div>{{ $student->last_name }} {{ $student->first_name }}</div>
+                </div>
+            </td>
+            <td>
+<span id="status-span-{{$student->id}}" class="{{ $student->status === 'active' ? 'text-success' : 'text-danger' }}">
+    {{ $student->status === 'active' ? 'Активен' : 'Неактивен' }}
+</span>
+            </td>
+            <td>{{ $student->flash_anzan_score }}</td>
+            <td>{{ $student->flash_cards_score }}</td>
+            <td>
+                <div class="flex">
+                    <form class="addStudentForm" action="{{ route('addStudent') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="teacher_id" value="{{ auth()->user()->id }}">
+                        <input type="hidden" name="student_id" value="{{ $student->id }}">
+                        @if ($student->teacher_id) <!-- Проверяем, что ученик привязан к учителю -->
+                        @if ($student->teacher_id == auth()->user()->id)
+                            Привязан к вам
+                        @else
+                            <span style="color: red;">Привязан</span>
+                        @endif
+                        @else
+                            <button type="submit" class="addStudentButton"><img src="{{ asset('storage/img/add.svg') }}" alt="Добавить"></button>
+                            <span class="addedMessage" style="display: none;">Привязан</span>
+                        @endif
+                    </form>
+                </div>
+            </td>
+        </tr>
+@endforeach
                     </tbody>
 
                 </table>

@@ -29,15 +29,15 @@ Route::middleware('guest')->group(function () {
         return view('register.register_student', ['teachers' => $teachers]);
     })->name('register.student');
 
+    Route::get('/auth', function () {
+        return view('auth');
+    })->name('login');
 });
 
 Route::post('/process-role-choice', [\App\Http\Controllers\RoleController::class, 'processRoleChoice'])->name('process.role.choice');
 
 Route::post('/home', [\App\Http\Controllers\RoleController::class, 'registerTeacher'])->name('registration');
 
-Route::get('/auth', function () {
-    return view('auth');
-})->name('login');
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', function () {
@@ -46,9 +46,26 @@ Route::middleware('auth')->group(function () {
     Route::get('/flash-anzan', function () {
         return view('games.flash-anzan');
     })->name('flash-anzan');
+    Route::get('/flash-cards', function () {
+        return view('games.flash-cards');
+    })->name('flash-cards');
+    Route::get('/multiplication', function () {
+        return view('games.multiplication');
+    })->name('multiplication');
+    Route::get('/division', function () {
+        return view('games.division');
+    })->name('division');
+    Route::get('/columns', function () {
+        return view('games.columns');
+    })->name('columns');
     Route::get('/profile', 'App\Http\Controllers\ProfileController@show')->name('profile.show');
     Route::post('/profile/update', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
     Route::post('/saveGameResult', [\App\Http\Controllers\GameController::class, 'saveGameResult']);
+
+    Route::post('/save-game-settings', [\App\Http\Controllers\GameSettingsController::class, 'store']);
+    Route::post('/save-game-results', [\App\Http\Controllers\GameResultController::class, 'store'])->name('save-game-results');
+
+
 //    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     });
 

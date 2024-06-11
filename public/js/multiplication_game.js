@@ -118,9 +118,9 @@ class Train {
             },
             speed: {
                 value: 1,
-                min: 1,
+                min: 0.4,
                 max: 4,
-                step: 1,
+                step: 0.1,
                 input: "input",
                 type: "float",
                 inputEl: document.querySelector('#speed-input')
@@ -202,51 +202,57 @@ class Train {
         setting.inputEl.value = setting.value
     }
     checkAnswer() {
+        const rightAnswer = this.numbers_array[this.count].reduce((a, b) => a * b, 1);
+        const isCorrect = parseInt(this.answer) === rightAnswer;
+
         this.results.push({
             answer: this.answer,
-            right: this.numbers_array[this.count].reduce((a, b) => a + b, 0),
-            result: this.answer == this.numbers_array[this.count].reduce((a, b) => a + b, 0),
-        })
-        let classname = this.results[this.count].result ? '.win' : '.fail';
-        this.result_container.querySelector('.win').style.display = 'none'
-        this.result_container.querySelector('.fail').style.display = 'none'
-        let imgs = this.result_container.querySelectorAll(`${classname} img`)
-        this.result_container.querySelector('.wait').style.display = 'none'
-        let ind = 1
-        imgs[0].parentNode.style.display = 'block'
-        imgs[0].style.display = 'block'
+            right: rightAnswer,
+            result: isCorrect,
+        });
+
+        let classname = isCorrect ? '.win' : '.fail';
+        this.result_container.querySelector('.win').style.display = 'none';
+        this.result_container.querySelector('.fail').style.display = 'none';
+        let imgs = this.result_container.querySelectorAll(`${classname} img`);
+        this.result_container.querySelector('.wait').style.display = 'none';
+        let ind = 1;
+        imgs[0].parentNode.style.display = 'block';
+        imgs[0].style.display = 'block';
 
         let inter = setInterval(() => {
             if (ind < imgs.length) {
-                imgs[ind - 1].style.display = 'none'
-                imgs[ind].style.display = 'block'
-                ind++
+                imgs[ind - 1].style.display = 'none';
+                imgs[ind].style.display = 'block';
+                ind++;
             } else {
-                imgs[ind - 1].style.display = 'none'
-                imgs[0].style.display = 'block'
-                ind = 1
+                imgs[ind - 1].style.display = 'none';
+                imgs[0].style.display = 'block';
+                ind = 1;
             }
-        }, 1)
-        let aud = classname == '.win' ? '#winaud' : '#failaud';
-        // document.querySelector(aud).play()
+        }, 100);
+
+        let aud = classname === '.win' ? '#winaud' : '#failaud';
+
         setTimeout(() => {
             clearInterval(inter);
-            this.answer = null
-            this.result_input.value = ''
-            this.result_container.style.display = 'none'
+            this.answer = null;
+            this.result_input.value = '';
+            this.result_container.style.display = 'none';
             imgs.forEach(el => {
-                el.style.display = 'none'
+                el.style.display = 'none';
             });
-            this.result_container.querySelector('.wait').style.display = 'block'
-            if (this.count < this.setting.examples.value - 1) {
-                imgs[0].parentNode.style.display = 'block'
-                this.startTraining(this.count + 1)
-            } else {
-                this.showStatistic()
-            }
-        }, 1)
+            this.result_container.querySelector('.wait').style.display = 'block';
 
+            if (this.count < this.setting.examples.value - 1) {
+                imgs[0].parentNode.style.display = 'block';
+                this.startTraining(this.count + 1);
+            } else {
+                this.showStatistic();
+            }
+        }, 1);
     }
+
     showStatistic() {
         this.statistic_container.style.display = 'flex'
         this.statistic_container.querySelector('.training_details').style.display = "none"
@@ -307,16 +313,13 @@ class Train {
             }
             res_item.querySelector('.rnumber').textContent = el.right
             let digs = '<table>'
-            if (Array.isArray(this.numbers_array[ind])) {
-                for (let i = 0; i < this.setting.action_count.value; i += 8) {
-                    digs += '<tr>'
-                    this.numbers_array[ind].slice(i, i + 8).forEach(el1 => {
-                        digs += `<td>${el1}</td>`
-                    })
-                    digs += '</tr>'
-                }
+            for (let i = 0; i < this.setting.action_count.value; i += 8) {
+                digs += '<tr>'
+                this.numbers_array[ind].slice(i, i + 8).forEach(el1 => {
+                    digs += `<td>${el1}</td>`
+                })
+                digs += '</tr>'
             }
-
             digs += '</table>'
             res_item.querySelector('.digits').innerHTML = digs
             this.stat_details.appendChild(res_item)
@@ -360,48 +363,34 @@ class Train {
     }
     startTraining(count) {
         historyGame = {};
-        this.counter_container.style.display = 'none'
-        this.result_container.querySelector('.win').style.display = 'none'
-        this.result_container.querySelector('.fail').style.display = 'none'
-        switch (this.mode) {
-            case 'flash':
-                this.imgs_container.style.display = 'flex'
-                this.showNumbers(this.numbers_array[count][0]);
-                break
-            default:
-                this.number_container.style.display = 'flex'
-                this.tr_number.style.color = ''
-                this.tr_number.textContent = this.numbers_array[count][0]
-                break
-        }
+        this.counter_container.style.display = 'none';
+        this.result_container.querySelector('.win').style.display = 'none';
+        this.result_container.querySelector('.fail').style.display = 'none';
 
-        this.curr_example = 1
+        this.number_container.style.display = 'flex';
+        this.tr_number.style.color = '';
+        this.tr_number.textContent = this.numbers_array[count][0];
 
-        this.count = count
+        this.curr_example = 1;
+        this.count = count;
 
         this.numInterval = setInterval(() => {
             if (this.numbers_array[count].length > this.curr_example) {
                 if (this.curr_example % 2) {
-                    this.tr_number.style.color = "#000000"
+                    this.tr_number.style.color = "#000000";
                 } else {
-                    this.tr_number.style.color = ''
-                }
-                switch (this.mode) {
-                    case 'flash':
-                        this.showNumbers(this.numbers_array[count][this.curr_example]);
-                        break;
-                    default:
-                        this.tr_number.textContent = this.numbers_array[count][this.curr_example];
-                        break;
+                    this.tr_number.style.color = '';
                 }
 
-                this.curr_example++
+                this.tr_number.textContent = this.numbers_array[count][this.curr_example];
+                this.curr_example++;
             } else {
-                this.getAnswer(count)
-                clearInterval(this.numInterval)
+                this.getAnswer(count);
+                clearInterval(this.numInterval);
             }
-        }, this.setting.speed.value * 1000)
+        }, this.setting.speed.value * 1000);
     }
+
     startingTraining() {
         this.setting_container.style.display = 'none'
         this.counter_container.style.display = 'flex'
@@ -410,6 +399,7 @@ class Train {
         this.results = []
         this.answer = null
         this.generateNumbers()
+        let audio = document.querySelector('#tick')
         this.interval = setInterval(() => {
             this.counter_images[this.counter + 1].style.display = 'none'
             if (this.counter >= 0) {
@@ -490,51 +480,24 @@ class Train {
         return parseInt(res)
     }
     generateNumbers() {
-        this.numbers_array = []
+        this.numbers_array = [];
         for (let i = 0; i < this.setting.examples.value; i++) {
-            let newSequence = []
-            let maxValue = Math.pow(10, this.setting.bitness.value)
-            let minValue = Math.pow(10, this.setting.bitness.value - 1)
-            if (this.setting.rules.value == 2) {
-                maxValue = maxValue - minValue
-            }
-            let curValue = randomInteger(minValue, maxValue - 1)
-            newSequence.push(curValue)
+            let newSequence = [];
+            let maxValue = Math.pow(10, this.setting.bitness.value);
+            let minValue = Math.pow(10, this.setting.bitness.value - 1);
+
+            let curValue = randomInteger(minValue, maxValue - 1);
+            newSequence.push(curValue);
+
             for (let j = 1; j < this.setting.action_count.value; j++) {
-                let compVal = 0
-                switch (this.setting.rules.value) {
-                    case 1:
-                        compVal = this.getNumberWithoutRules(curValue)
-                        break
-                    case 2:
-                        compVal = this.getNumberWithoutRules(curValue, true)
-                        break
-                    case 3:
-                        if (curValue < maxValue) {
-                            compVal = randomInteger(maxValue - curValue, maxValue - 1)
-                        } else {
-                            compVal = -randomInteger(curValue - maxValue + 1, maxValue - 1)
-                        }
-                        break
-                    case 4:
-                        let sign = !!Math.round(Math.random())
-                        if (curValue == 1) {
-                            sign = true
-                        }
-                        if (sign) {
-                            compVal = randomInteger(1, maxValue - 1)
-                        } else {
-                            let mMax = (maxValue > curValue) ? curValue : maxValue
-                            compVal = -randomInteger(1, mMax - 1)
-                        }
-                        break
-                }
-                newSequence.push(compVal)
-                curValue += compVal
+                let compVal = randomInteger(1, 10); // Числа для умножения от 1 до 10
+                newSequence.push(compVal);
             }
-            this.numbers_array.push(newSequence)
+
+            this.numbers_array.push(newSequence);
         }
     }
+
 }
 
 let train = new Train({
@@ -559,5 +522,44 @@ function openPopup(classname) {
         document.body.classList = '';
     }
 }
+let form = document.querySelector("#popupform");
+let error = document.querySelector('.popup-form .error');
+form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    localStorage.setItem('username', form.name.value);
+    localStorage.setItem('secret', form.secret.value);
 
+    error.style.display = 'none';
+    let formData = new FormData(form);
+    formData.append('hgame', JSON.stringify(historyGame));
+
+    // 1. Создаём новый XMLHttpRequest-объект
+    let xhr = new XMLHttpRequest();
+
+    // 2. Настраиваем его: GET-запрос по URL /article/.../load
+    xhr.open('POST', '/report.php');
+
+    // 3. Отсылаем запрос
+    xhr.send(formData);
+
+    // 4. Этот код сработает после того, как мы получим ответ сервера
+    xhr.onload = function () {
+        if (xhr.status != 200) { // анализируем HTTP-статус ответа, если статус не 200, то произошла ошибка
+            alert(`Ошибка ${xhr.status}: ${xhr.statusText}`); // Например, 404: Not Found
+        } else {
+            let text = xhr.response
+            if (text == 'OK') {
+                openPopup()
+                openPopup('open_success');
+                historyGame = {};
+                error.style.display = 'none'
+                error.textContent = '';
+            } else {
+                error.style.display = 'block'
+                error.textContent = '';
+                error.textContent = text;
+            }
+        }
+    };
+})
 

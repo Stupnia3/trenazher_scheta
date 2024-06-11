@@ -22,6 +22,7 @@
             @endif
             <div class="form_container">
                 <form action="{{route('auth')}}" method="post">
+                    @csrf
                     <div>
                         <label for="login">Логин</label>
                         <input type="text" id="login" name="login" placeholder="Введите ваш логин" required>
@@ -42,4 +43,5 @@
     </div>
 
 
+    <script src="{{asset('js/validate.js')}}"></script>
 @endsection

@@ -32,7 +32,7 @@ class Train {
         this.stat_details = setting.stat_details
         this.details_button = this.statistic_container.querySelector('.training_button.details')
         let restarts = document.querySelectorAll('.restart')
-        this.mode = 'normal'
+        this.mode = 'flash'
         this.setting_container.addEventListener('click', (e) => {
             e.preventDefault();
         })
@@ -100,7 +100,7 @@ class Train {
                 inputEl: document.querySelector('#bitness')
             },
             rules: {
-                value: 1,
+                value: 5,
                 min: 1,
                 max: null,
                 input: "selector",
@@ -108,8 +108,8 @@ class Train {
                 inputEl: document.querySelector('#rules')
             },
             action_count: {
-                value: 2,
-                min: 2,
+                value: 1,
+                min: 1,
                 max: null,
                 input: "input",
                 type: "int",
@@ -118,9 +118,9 @@ class Train {
             },
             speed: {
                 value: 1,
-                min: 1,
+                min: 0.4,
                 max: 4,
-                step: 1,
+                step: 0.1,
                 input: "input",
                 type: "float",
                 inputEl: document.querySelector('#speed-input')
@@ -227,7 +227,7 @@ class Train {
                 ind = 1
             }
         }, 1)
-        let aud = classname == '.win' ? '#winaud' : '#failaud';
+        let aud = classname === '.win' ? '#winaud' : '#failaud';
         // document.querySelector(aud).play()
         setTimeout(() => {
             clearInterval(inter);
@@ -311,7 +311,7 @@ class Train {
                 for (let i = 0; i < this.setting.action_count.value; i += 8) {
                     digs += '<tr>'
                     this.numbers_array[ind].slice(i, i + 8).forEach(el1 => {
-                        digs += `<td>${el1}</td>`
+                        digs += `<td><img src="${this.img_path + el1}.svg" width="59" height="180" class="training_abakus" alt="${el1}"></td>`
                     })
                     digs += '</tr>'
                 }
