@@ -329,13 +329,14 @@
                     totalPoints /= speed;
                 }
 
-                totalPoints *= examples;
 
                 // Расчет баллов за один пример
                 pointsPerExample *= totalPoints;
 
                 // Расчет штрафных баллов за неправильный ответ
                 penaltyPoints = pointsPerExample / 2;
+
+                totalPoints *= examples;
 
                 const finalTotalPoints = correctAnswersCount * pointsPerExample - incorrectAnswersCount * penaltyPoints;
                 const finalPointsPerExample = correctAnswersCount * pointsPerExample;
