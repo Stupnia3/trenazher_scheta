@@ -16,25 +16,25 @@
     <div class="border_bals">
         <div class="game">
             <img src="{{asset('storage/img/Group 50 (1).png')}}" alt="Флеш-карты">
-            <a href="/"><div class="btn_game">Флеш-карты</div></a>
+            <a href="{{route('flash-cards')}}"><div class="btn_game">Флеш-карты</div></a>
         </div>
     </div>
     <div class="border_bals">
         <div class="game">
             <img src="{{asset('storage/img/Group 50 (2).png')}}" alt="Столбцы">
-            <a href="/"><div class="btn_game">Столбцы</div></a>
+            <a href="{{route('division')}}"><div class="btn_game">Делитель</div></a>
         </div>
     </div>
     <div class="border_bals">
         <div class="game">
             <img src="{{asset('storage/img/Group 50 (3).png')}}" alt="Умножайка">
-            <a href="/"><div class="btn_game">Умножайка</div></a>
+            <a href="{{route('multiplication')}}"><div class="btn_game">Умножайка</div></a>
         </div>
     </div>
     <div class="border_bals">
         <div class="game">
             <img src="{{asset('storage/img/Group 50 (4).png')}}" alt="Генератор">
-            <a href="/"><div class="btn_game">Генератор</div></a>
+            <a href="{{route('columns')}}"><div class="btn_game">Столбцы</div></a>
         </div>
     </div>
 </div>

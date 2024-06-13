@@ -19,12 +19,13 @@ class RegisterController extends Controller
             'middle_name'           => 'required|regex:/^[а-яА-ЯёЁ]+$/u|max:255', // только кириллица
             'last_name'             => 'nullable|regex:/^[а-яА-ЯёЁ]+$/u|max:255', // только кириллица
             'email'                 => 'required|string|email|max:255|unique:users',
+            'login'                 => 'required|string|max:255|unique:users',
             'password'              => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required|string|min:8',
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('register.register_teacher')
+            return redirect()->route('register.teacher')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -46,6 +47,7 @@ class RegisterController extends Controller
             'last_name'             => 'nullable|regex:/^[а-яА-ЯёЁ]+$/u|max:255', // только кириллица
             'phone'                 => 'nullable|regex:/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/|unique:users', // шаблон телефона +7 (999) 999-99-99
             'email'                 => 'required|string|email|max:255|unique:users',
+            'login'                 => 'required|string|max:255|unique:users',
             'password'              => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required|string|min:8',
         ]);

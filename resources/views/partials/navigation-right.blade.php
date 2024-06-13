@@ -15,8 +15,13 @@
                         @endif
                 </a>
             </li>
-            <li><a href="{{ route('showAllStudents') }}"><img src="{{asset('storage/img/icon (10).svg')}}" alt="Добавить ученика"></a></li>
-            <li><a href="/settings"><img src="{{asset('storage/img/icon (9).svg')}}" alt="Настройки"></a></li>
+            @if(auth()->check() && auth()->user()->role === \App\Enums\RoleEnum::TEACHER->value)
+                <li>
+                    <a href="{{ route('showAllStudents') }}">
+                        <img src="{{ asset('storage/img/icon (10).svg') }}" alt="Добавить ученика">
+                    </a>
+                </li>
+            @endif
             <li class="exit"><a href="{{route('logout')}}"><img src="{{asset('storage/img/icon (11).svg')}}" alt="Выход"></a></li>
         </ul>
     </nav>

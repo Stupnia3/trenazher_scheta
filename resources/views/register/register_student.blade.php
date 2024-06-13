@@ -49,7 +49,7 @@
                     <div>
                         <label for="login">Логин</label>
                         <input type="text" id="login" name="login" placeholder="Введите ваш логин" required>
-                        @error('email')
+                        @error('login')
                         <span class="error">{{ $message }}</span>
                         @enderror
                     </div>

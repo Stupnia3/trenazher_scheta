@@ -157,6 +157,17 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'first_name' => 'имя',
+        'middle_name' => 'отчество',
+        'last_name' => 'фамилия',
+        'email' => 'электронная почта',
+        'login' => 'логин',
+        'password' => 'пароль',
+        'password_confirmation' => 'подтверждение пароля',
+        'phone' => 'телефон',
+        'parent_name' => 'имя родителя',
+        'parent_surname' => 'фамилия родителя',
+    ],
 
 ];

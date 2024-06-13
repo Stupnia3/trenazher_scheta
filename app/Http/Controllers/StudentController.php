@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use App\Models\Student;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
+use App\Models\GameResult;
 
 
 class StudentController extends Controller
@@ -17,6 +18,15 @@ class StudentController extends Controller
     public function index()
     {
         $students = User::whereRole('student')->paginate(10);
+        $students->each(function($student) {
+            $student->flash_anzan_score = GameResult::where('user_id', $student->id)
+                ->where('game_name', 'flash_anzan')
+                ->sum('score');
+            $student->flash_cards_score = GameResult::where('user_id', $student->id)
+                ->where('game_name', 'flash_cards')
+                ->sum('score');
+        });
+
         return view('teacher.add', ['students' => $students]);
     }
 
@@ -42,7 +52,17 @@ class StudentController extends Controller
 
     public function showAllStudents()
     {
+        // Загружаем студентов вместе с их игровыми результатами
         $students = User::whereRole('student')->paginate(10);
+        $students->each(function($student) {
+            $student->flash_anzan_score = GameResult::where('user_id', $student->id)
+                ->where('game_name', 'flash_anzan')
+                ->sum('score');
+            $student->flash_cards_score = GameResult::where('user_id', $student->id)
+                ->where('game_name', 'flash_cards')
+                ->sum('score');
+        });
+
         return view('teacher.add', ['students' => $students]);
     }
 
@@ -103,6 +123,16 @@ class StudentController extends Controller
 
         // Загружаем студентов с учетом страницы и количества элементов на странице
         $students = $query->paginate($perPage, ['*'], 'page', $page);
+
+        // Добавляем результаты игр
+        $students->each(function($student) {
+            $student->flash_anzan_score = GameResult::where('user_id', $student->id)
+                ->where('game_name', 'flash_anzan')
+                ->sum('score');
+            $student->flash_cards_score = GameResult::where('user_id', $student->id)
+                ->where('game_name', 'flash_cards')
+                ->sum('score');
+        });
 
         // Возвращаем данные в формате JSON
         return response()->json($students);

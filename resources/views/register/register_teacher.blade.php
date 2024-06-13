@@ -20,32 +20,53 @@
                     <div>
                         <label for="name">Имя</label>
                         <input type="text" id="name" name="first_name" placeholder="Введите ваше имя" required>
+                        @error('first_name')
+                        <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
                         <label for="surname">Фамилия</label>
                         <input type="text" id="surname" name="middle_name" placeholder="Введите вашу фамилию" required>
+                        @error('middle_name')
+                        <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
                         <label for="patronymic">Отчество</label>
                         <input type="text" id="patronymic" name="last_name" placeholder="Введите ваше отчество" required>
+                        @error('last_name')
+                        <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
                         <label for="email">E-mail</label>
                         <input type="email" id="email" name="email" placeholder="Введите ваш e-mail" required>
+                        @error('email')
+                        <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
                         <label for="login">Логин</label>
                         <input type="text" id="login" name="login" placeholder="Введите ваш логин" required>
+                        @error('login')
+                        <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
                         <label for="password">Пароль</label>
                         <input type="password" id="password" name="password" required>
                         <span class="togglePassword"></span>
+                        @error('password')
+                        <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
                         <label for="confirm_password">Повторите пароль</label>
                         <input type="password" id="confirm_password" name="password_confirmation" required>
                         <span class="togglePassword"></span>
+                        @error('password_confirmation')
+                        <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="file-input-container">
                         <input type="file" id="file-input" name="profile_image" accept="image/jpeg, image/png, image/jpg, image/gif, image/webp" style="display: none;">
