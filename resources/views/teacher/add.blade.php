@@ -23,8 +23,9 @@
                         <th>Активация</th>
                         <th>Флеш-анзан</th>
                         <th>Флеш-карты</th>
-                        <!-- Другие игры -->
-                        <th>Управление</th>
+                        <th>Делитель</th>
+                        <th>Умножайка</th>
+                        <th>Столбцы</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -208,7 +209,7 @@
                         <div class="avatar_img avatar_profile avatar_student">
                             <img src="{{ asset('storage/avatars/') }}/${student.profile_image}" alt="Профиль">
                         </div>
-                        <div>${student.last_name} ${student.first_name}</div>
+                        <div>${student.middle_name} ${student.first_name}</div>
                     </div>
                 </td>
                 <td>
@@ -218,6 +219,9 @@
                 </td>
                 <td>${student.flash_anzan_score}</td>
                 <td>${student.flash_cards_score}</td>
+                <td>${student.division_score}</td>
+                <td>${student.multiplication_score}</td>
+                <td>${student.columns_score}</td>
                 <td>
                     <div class="flex">
                         <form class="addStudentForm" action="{{ route('addStudent') }}" method="post">

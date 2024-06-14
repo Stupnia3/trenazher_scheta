@@ -1,15 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Student;
 use App\Models\User;
+use App\Models\GameResult;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use App\Models\Student;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\DB;
-use App\Models\GameResult;
-
 
 class StudentController extends Controller
 {
@@ -17,15 +13,7 @@ class StudentController extends Controller
 
     public function index()
     {
-        $students = User::whereRole('student')->paginate(10);
-        $students->each(function($student) {
-            $student->flash_anzan_score = GameResult::where('user_id', $student->id)
-                ->where('game_name', 'flash_anzan')
-                ->sum('score');
-            $student->flash_cards_score = GameResult::where('user_id', $student->id)
-                ->where('game_name', 'flash_cards')
-                ->sum('score');
-        });
+        $students = $this->getStudentsWithGameScores(User::whereRole('student')->paginate(10));
 
         return view('teacher.add', ['students' => $students]);
     }
@@ -53,15 +41,7 @@ class StudentController extends Controller
     public function showAllStudents()
     {
         // Загружаем студентов вместе с их игровыми результатами
-        $students = User::whereRole('student')->paginate(10);
-        $students->each(function($student) {
-            $student->flash_anzan_score = GameResult::where('user_id', $student->id)
-                ->where('game_name', 'flash_anzan')
-                ->sum('score');
-            $student->flash_cards_score = GameResult::where('user_id', $student->id)
-                ->where('game_name', 'flash_cards')
-                ->sum('score');
-        });
+        $students = $this->getStudentsWithGameScores(User::whereRole('student')->paginate(10));
 
         return view('teacher.add', ['students' => $students]);
     }
@@ -125,19 +105,19 @@ class StudentController extends Controller
         $students = $query->paginate($perPage, ['*'], 'page', $page);
 
         // Добавляем результаты игр
-        $students->each(function($student) {
-            $student->flash_anzan_score = GameResult::where('user_id', $student->id)
-                ->where('game_name', 'flash_anzan')
-                ->sum('score');
-            $student->flash_cards_score = GameResult::where('user_id', $student->id)
-                ->where('game_name', 'flash_cards')
-                ->sum('score');
-        });
+        $students = $this->getStudentsWithGameScores($students);
 
         // Возвращаем данные в формате JSON
         return response()->json($students);
     }
 
+    // Добавляем новый метод для страницы рейтинга
+    public function ratingPage()
+    {
+        $students = $this->getStudentsWithGameScores(User::whereRole('student')->paginate(10));
+
+        return view('rating_page', ['students' => $students]);
+    }
 
     // Метод loadAllStudents остается без изменений
     public function loadAllStudents()
@@ -145,6 +125,22 @@ class StudentController extends Controller
         $students = Student::all();
         return response()->json($students);
     }
+
+    private function getStudentsWithGameScores($students)
+    {
+        $students->each(function($student) {
+            $student->flash_anzan_score = $this->getGameScore($student->id, 'flash-anzan');
+            $student->flash_cards_score = $this->getGameScore($student->id, 'flash-cards');
+            $student->multiplication_score = $this->getGameScore($student->id, 'multiplication');
+            $student->division_score = $this->getGameScore($student->id, 'division');
+            $student->columns_score = $this->getGameScore($student->id, 'columns');
+        });
+
+        return $students;
+    }
+
+    private function getGameScore($userId, $gameName)
+    {
+        return GameResult::where('user_id', $userId)->where('game_name', $gameName)->sum('score');
+    }
 }
-
-

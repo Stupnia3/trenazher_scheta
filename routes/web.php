@@ -65,7 +65,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/save-game-settings', [\App\Http\Controllers\GameSettingsController::class, 'store']);
     Route::post('/save-game-results', [\App\Http\Controllers\GameResultController::class, 'store'])->name('save-game-results');
 
+    Route::get('/rating', [\App\Http\Controllers\StudentController::class, 'ratingPage'])->name('rating.page');
 
+    Route::post('/profile/change-password', [\App\Http\Controllers\ProfileController::class, 'changePassword'])->name('profile.changePassword');
 //    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     });
 

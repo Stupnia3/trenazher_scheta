@@ -168,6 +168,9 @@ return [
         'phone' => 'телефон',
         'parent_name' => 'имя родителя',
         'parent_surname' => 'фамилия родителя',
+        'new_password' => 'новый пароль',
+        'current_password' => 'старый пароль',
+        'confirm_new_password' => 'подтверждение пароля',
     ],
 
 ];

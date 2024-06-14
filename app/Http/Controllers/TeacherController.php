@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\UsersExport;
 use App\Models\File;
+use App\Models\GameResult;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -25,8 +26,29 @@ class TeacherController extends Controller
         // Получаем файлы, привязанные к данному учителю
         $files = File::where('teacher_id', $teacher->id)->get();
 
+        // Добавляем баллы за игры для каждого студента
+        $students = $this->getStudentsWithGameScores($students);
+
         return view('teacher.students', compact('students', 'files'));
     }
+    private function getStudentsWithGameScores($students)
+    {
+        $students->each(function($student) {
+            $student->flash_anzan_score = $this->getGameScore($student->id, 'flash-anzan');
+            $student->flash_cards_score = $this->getGameScore($student->id, 'flash-cards');
+            $student->multiplication_score = $this->getGameScore($student->id, 'multiplication');
+            $student->division_score = $this->getGameScore($student->id, 'division');
+            $student->columns_score = $this->getGameScore($student->id, 'columns');
+        });
+
+        return $students;
+    }
+
+    private function getGameScore($userId, $gameName)
+    {
+        return GameResult::where('user_id', $userId)->where('game_name', $gameName)->sum('score');
+    }
+
 
     public function downloadTemplate()
     {
@@ -70,9 +92,9 @@ class TeacherController extends Controller
                         }
                         // Создание нового пользователя
                         $user = new User();
-                        $user->last_name = $row[0] ?? ''; // Фамилия
+                        $user->middle_name = $row[0] ?? ''; // Фамилия
                         $user->first_name= $row[1] ?? ''; // Имя
-                        $user->middle_name = $row[2] ?? ''; // Отчество
+                        $user->last_name = $row[2] ?? ''; // Отчество
                         $user->email = $row[3] ?? ''; // E-mail (если $row[3] не определено, будет сохранена пустая строка)
                         $user->parent_name = $row[4] ?? ''; // Имя родителя
                         $user->parent_surname = $row[5] ?? ''; // Фамилия родителя
@@ -91,9 +113,9 @@ class TeacherController extends Controller
 
                         // Добавляем данные студента в коллекцию для Excel-файла
                         $data->push([
-                            $user->last_name,
-                            $user->first_name,
                             $user->middle_name,
+                            $user->first_name,
+                            $user->last_name,
                             $user->email,
                             $user->parent_name,
                             $user->parent_surname,

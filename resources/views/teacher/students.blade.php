@@ -24,7 +24,7 @@
                     <form action="{{ route('uploadExcel') }}" method="POST" enctype="multipart/form-data"
                           id="excelForm" class="form_add_students">
                         @csrf
-                        <label for="file-input" class="file-input-add btn-teacher add_students btn_add_students">Выбрать файл</label>
+                        <label for="filled-file" class="file-input-add btn-teacher add_students btn_add_students">Выбрать файл</label>
                         <input type="file" name="filled-file" id="filled-file" accept=".xlsx,.xls"
                                style="display: none">
                         <button type="submit" class="btn_submit_add">Загрузить заполненный Excel</button>
@@ -68,7 +68,9 @@
                             <th>Активация</th>
                             <th>Флеш-анзан</th>
                             <th>Флеш-карты</th>
-                            <!-- Другие игры -->
+                            <th>Делитель</th>
+                            <th>Умножайка</th>
+                            <th>Столбцы</th>
                             <th>Управление</th>
                         </tr>
                         </thead>
@@ -81,7 +83,7 @@
                                             <img src="{{ asset('storage/avatars/' . $student->profile_image) }}"
                                                  alt="Профиль">
                                         </div>
-                                        <div>{{ $student->last_name }} {{ $student->first_name }}</div>
+                                        <div>{{ $student->middle_name }} {{ $student->first_name }}</div>
                                     </div>
                                 </td>
                                 <td>
@@ -91,9 +93,11 @@
                                 </span>
 
                                 </td>
-
                                 <td>{{ $student->flash_anzan_score }}</td>
                                 <td>{{ $student->flash_cards_score }}</td>
+                                <td>{{ $student->division_score }}</td>
+                                <td>{{ $student->multiplication_score }}</td>
+                                <td>{{ $student->columns_score }}</td>
                                 <td>
                                     <div class="flex">
                                         <form class="toggle-activation-form">

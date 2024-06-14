@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('css/style.min.css')}}" />
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+
     <title>@yield('title')</title>
 </head>
 <body>
@@ -39,10 +40,30 @@
 
 <script src="{{asset('js/script.js')}}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="{{asset('jquery.mask.js')}}"></script>
+{{--<script src="{{asset('jquery.mask.js')}}"></script>--}}
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
 
-<script>document.getElementById('download-link').click();</script>
+<script>
+    $(document).ready(function() {
+        // Инициализация tablesorter на таблице с id studentsTable
+        $("#studentsTable").tablesorter({
+            widgets: ['zebra'], // Дополнительные виджеты (необязательно)
+            headers: {
+                // Отключаем сортировку для первых трех столбцов (аватарка, фамилия, имя)
+                0: { sorter: false },
+            }
+        });
+
+        // Проверяем существование элемента download-link и вызываем click(), если он существует
+        var downloadLink = document.getElementById('download-link');
+        if (downloadLink) {
+            downloadLink.click();
+        }
+    });
+</script>
+
+@yield('scripts')
 </body>
 </html>

@@ -8,7 +8,7 @@
                     <li><a href="{{route('division')}}"><img src="{{asset('storage/img/icon (2).svg')}}" alt="Столбцы"><p class="text-link">Делитель</p></a></li>
                     <li><a href="{{route('multiplication')}}"><img src="{{asset('storage/img/icon (3).svg')}}" alt="Умножайка"><p class="text-link">Умножайка</p></a></li>
                     <li><a href="{{route('columns')}}"><img src="{{asset('storage/img/icon (4).svg')}}" alt="Генератор"><p class="text-link">Столбцы</p></a></li>
-                    <li><a href="/contact"><img src="{{asset('storage/img/icon (5).svg')}}" alt="Рейтинг"><p class="text-link">Рейтинг</p></a></li>
+                    <li><a href="{{route('rating.page')}}"><img src="{{asset('storage/img/icon (5).svg')}}" alt="Рейтинг"><p class="text-link">Рейтинг</p></a></li>
 
                 </ul>
             </nav>
