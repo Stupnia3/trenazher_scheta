@@ -21,11 +21,7 @@
                     <tr>
                         <th>Пользователь</th>
                         <th>Активация</th>
-                        <th>Флеш-анзан</th>
-                        <th>Флеш-карты</th>
-                        <th>Делитель</th>
-                        <th>Умножайка</th>
-                        <th>Столбцы</th>
+                        <th>Действия</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -217,11 +213,6 @@
                         ${student.status === 'active' ? 'Активен' : 'Неактивен'}
                     </span>
                 </td>
-                <td>${student.flash_anzan_score}</td>
-                <td>${student.flash_cards_score}</td>
-                <td>${student.division_score}</td>
-                <td>${student.multiplication_score}</td>
-                <td>${student.columns_score}</td>
                 <td>
                     <div class="flex">
                         <form class="addStudentForm" action="{{ route('addStudent') }}" method="post">

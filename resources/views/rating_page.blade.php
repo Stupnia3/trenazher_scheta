@@ -38,11 +38,11 @@
                                         <div>{{ $student->middle_name }} {{ $student->first_name }}</div>
                                     </div>
                                 </td>
-                                <td>{{ $student->flash_anzan_score }}</td>
-                                <td>{{ $student->flash_cards_score }}</td>
-                                <td>{{ $student->division_score }}</td>
-                                <td>{{ $student->multiplication_score }}</td>
-                                <td>{{ $student->columns_score }}</td>
+                                <td>{{ $student->total_score_flash_anzan }}</td>
+                                <td>{{ $student->total_score_flash_cards }}</td>
+                                <td>{{ $student->total_score_division }}</td>
+                                <td>{{ $student->total_score_multiplication }}</td>
+                                <td>{{ $student->total_score_columns }}</td>
                             </tr>
                         @endforeach
                         </tbody>

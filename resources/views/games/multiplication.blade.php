@@ -7,6 +7,27 @@
 @section('content')
     <section class="training">
         <div class="profile_block">
+            <button id="openModalBtn" class="btn-teacher">Как играть</button>
+            <!-- Руководство пользователя -->
+            <div id="modal" class="user_guide modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h4>Как играть:</h4>
+                    <p>В этой игре на экране будут появляться числа, и ваша задача — посчитать их сумму.</p>
+                    <p>В настройках игры доступны три параметра:</p>
+                    <ul>
+                        <li><strong>Количество действий:</strong> количество чисел, которые будут появляться на
+                            экране и которые необходимо будет сложить.
+                        </li>
+                        <li><strong>Скорость:</strong> время, в течение которого каждое число будет отображаться
+                            на экране.
+                        </li>
+                        <li><strong>Количество примеров:</strong> количество игровых сессий без перезапуска
+                            игры.
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <div class="training_wrapper">
                 <div class="training_start">
                     <h1 class="page_title border_bals">
@@ -35,12 +56,7 @@
                             <h3 class="training_setting-title">Количество действий</h3>
                             <div class="training_counter" id="action_count">
                                 <button class="training_counter-button minus" disabled>
-                                    <img
-                                        src="{{asset('storage/img/minus.svg')}}"
-                                        width="20"
-                                        height="20"
-                                        alt=""
-                                    />
+                                    -
                                 </button>
                                 <input
                                     type="text"
@@ -49,12 +65,7 @@
                                     value="2"
                                 />
                                 <button class="training_counter-button plus">
-                                    <img
-                                        src="{{asset('storage/img/plus.svg')}}"
-                                        width="20"
-                                        height="20"
-                                        alt=""
-                                    />
+                                    +
                                 </button>
                             </div>
                         </div>
@@ -62,12 +73,7 @@
                             <h3 class="training_setting-title">Cкорость</h3>
                             <div class="training_counter" id="speed">
                                 <button class="training_counter-button minus">
-                                    <img
-                                        src="{{asset('storage/img/minus.svg')}}"
-                                        width="20"
-                                        height="20"
-                                        alt=""
-                                    />
+                                    -
                                 </button>
                                 <input
                                     type="text"
@@ -76,12 +82,7 @@
                                     value="1"
                                 />
                                 <button class="training_counter-button plus">
-                                    <img
-                                        src="{{asset('storage/img/plus.svg')}}"
-                                        width="20"
-                                        height="20"
-                                        alt=""
-                                    />
+                                    +
                                 </button>
                             </div>
                         </div>
@@ -89,12 +90,7 @@
                             <h3 class="training_setting-title">Количество примеров</h3>
                             <div class="training_counter" id="examples">
                                 <button class="training_counter-button minus" disabled>
-                                    <img
-                                        src="{{asset('storage/img/minus.svg')}}"
-                                        width="20"
-                                        height="20"
-                                        alt=""
-                                    />
+                                    -
                                 </button>
                                 <input
                                     type="text"
@@ -103,12 +99,7 @@
                                     value="1"
                                 />
                                 <button class="training_counter-button plus">
-                                    <img
-                                        src="{{asset('storage/img/plus.svg')}}"
-                                        width="20"
-                                        height="20"
-                                        alt=""
-                                    />
+                                    +
                                 </button>
                             </div>
                         </div>
@@ -157,7 +148,7 @@
                             </div>
                         </div>
                     </div>
-                    <button class="training_button start">СТАРТ</button>
+                    <button class="training_button start btn-student">Начать</button>
                 </div>
                 <div class="training_starting_counter" style="display: none">
                     <img src="" alt=""/>
@@ -174,7 +165,7 @@
                         <div class="training_result-wrapper">
                             <form class="training_result-form">
                                 <input type="text" class="input"/>
-                                <button class="training_button" type="submit">Готово</button>
+                                <button class="training_button btn-student" type="submit">Готово</button>
                             </form>
                             <div class="training_result-anim win">
                                 <img src="" alt=""/><img
@@ -211,29 +202,29 @@
                             </div>
                         </div>
                     </div>
-                    <button class="training_button restart" id="restart_game">Заново</button>
-                    <button class="training_button details" id="show-points">Посмотреть баллы</button>
+                    <button class="training_button details btn-student" id="show-points">Посмотреть баллы</button>
                     <div class="training_details">
+                        <div class="training_points">
+                            <h3 class="training_setting-title">Итоговые баллы</h3>
+                            <p id="total-points-end">0</p>
+                        </div>
+                        <div class="training_points">
+                            <h3 class="training_setting-title">Баллы за один пример</h3>
+                            <p id="points-per-example-end">0</p>
+                        </div>
+                        <div class="training_points">
+                            <h3 class="training_setting-title">Штраф за неправильный пример</h3>
+                            <p id="penalty-points-end">0</p>
+                        </div>
                         <div class="training_details-info">
                             <p>Ваш ответ:</p>
                             <p>Правильный:</p>
                         </div>
                     </div>
-                    <div class="training_points">
-                        <h3 class="training_setting-title">Итоговые баллы</h3>
-                        <p id="total-points-end">0</p>
-                    </div>
-                    <div class="training_points">
-                        <h3 class="training_setting-title">Баллы за один пример</h3>
-                        <p id="points-per-example-end">0</p>
-                    </div>
-                    <div class="training_points">
-                        <h3 class="training_setting-title">Штраф за неправильный пример</h3>
-                        <p id="penalty-points-end">0</p>
-                    </div>
                     <button class="send_report" style="display: none" onclick="openPopup('open_send')">
                         Отправить учителю
                     </button>
+                    <button class="training_button restart" id="restart_game">Заново</button>
                 </div>
             </div>
         </div>
@@ -287,7 +278,8 @@
     <script src="{{asset('js/multiplication_game.js')}}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Элементы полей настройки
+            let dataSaved = false;
+
             const actionCountInput = document.getElementById('action_count-input');
             const speedInput = document.getElementById('speed-input');
             const examplesInput = document.getElementById('examples-input');
@@ -308,7 +300,15 @@
             const examplesPlusBtn = document.querySelector('#examples .plus');
             const examplesMinusBtn = document.querySelector('#examples .minus');
 
-            // Функция для обновления баллов
+            const sessionId = generateUUID();
+
+            function generateUUID() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            }
+
             function updatePoints() {
                 const actionCount = parseInt(actionCountInput.value, 10) || 0;
                 const speed = parseFloat(speedInput.value) || 1;
@@ -320,7 +320,6 @@
                 let pointsPerExample = 1;
                 let penaltyPoints = 0;
 
-                // Расчет итоговых баллов
                 if (actionCount > 2) {
                     totalPoints += (actionCount - 2) * 0.5;
                 }
@@ -329,13 +328,8 @@
                     totalPoints /= speed;
                 }
 
-
-                // Расчет баллов за один пример
                 pointsPerExample *= totalPoints;
-
-                // Расчет штрафных баллов за неправильный ответ
                 penaltyPoints = pointsPerExample / 2;
-
                 totalPoints *= examples;
 
                 const finalTotalPoints = correctAnswersCount * pointsPerExample - incorrectAnswersCount * penaltyPoints;
@@ -349,113 +343,114 @@
                 totalPointsDisplay.textContent = totalPoints.toFixed(2);
                 pointsPerExampleDisplay.textContent = pointsPerExample.toFixed(2);
                 penaltyPointsDisplay.textContent = penaltyPoints.toFixed(2);
-                const gameName = 'multiplication';
-                saveGameSettings();
-                saveGameResults(gameName);
+
+                if (!dataSaved && (correctAnswersCount !== 0 || incorrectAnswersCount !== 0)) {
+                    const gameName = 'multiplication';
+                    saveGameSettings();
+                    saveGameResults(gameName);
+                    dataSaved = true; // Устанавливаем флаг после сохранения данных
+                }
             }
 
-            // Обработчики событий для изменения значений полей
             actionCountInput.addEventListener('input', updatePoints);
             speedInput.addEventListener('input', updatePoints);
             examplesInput.addEventListener('input', updatePoints);
 
-            // Обработчики событий для кнопок
             actionCountPlusBtn.addEventListener('click', function () {
                 actionCountInput.value = parseInt(actionCountInput.value, 10);
-                actionCountInput.dispatchEvent(new Event('input')); // Триггерим событие input
+                actionCountInput.dispatchEvent(new Event('input'));
             });
 
             actionCountMinusBtn.addEventListener('click', function () {
                 actionCountInput.value = Math.max(0, parseInt(actionCountInput.value, 10));
-                actionCountInput.dispatchEvent(new Event('input')); // Триггерим событие input
+                actionCountInput.dispatchEvent(new Event('input'));
             });
 
             speedPlusBtn.addEventListener('click', function () {
                 speedInput.value = parseFloat(speedInput.value);
-                speedInput.dispatchEvent(new Event('input')); // Триггерим событие input
+                speedInput.dispatchEvent(new Event('input'));
             });
 
             speedMinusBtn.addEventListener('click', function () {
                 speedInput.value = Math.max(1, parseFloat(speedInput.value));
-                speedInput.dispatchEvent(new Event('input')); // Триггерим событие input
+                speedInput.dispatchEvent(new Event('input'));
             });
 
             examplesPlusBtn.addEventListener('click', function () {
                 examplesInput.value = parseInt(examplesInput.value, 10);
-                examplesInput.dispatchEvent(new Event('input')); // Триггерим событие input
+                examplesInput.dispatchEvent(new Event('input'));
             });
 
             examplesMinusBtn.addEventListener('click', function () {
                 examplesInput.value = Math.max(1, parseInt(examplesInput.value, 10));
-                examplesInput.dispatchEvent(new Event('input')); // Триггерим событие input
+                examplesInput.dispatchEvent(new Event('input'));
             });
 
-            // Функция для сброса результатов
             function resetResults() {
+                const totalPoints = totalPointsDisplay.textContent;
+                const pointsPerExample = pointsPerExampleDisplay.textContent;
+                const penaltyPoints = penaltyPointsDisplay.textContent;
+
                 correctAnswersDisplay.textContent = '0';
                 incorrectAnswersDisplay.textContent = '0';
-                totalPointsEndDisplay.textContent = '0.00';
-                pointsPerExampleEndDisplay.textContent = '0.00';
-                penaltyPointsEndDisplay.textContent = '0.00';
-                totalPointsDisplay.textContent = '0.00';
-                pointsPerExampleDisplay.textContent = '0.00';
-                penaltyPointsDisplay.textContent = '0.00';
-                updatePoints();
+
+                totalPointsEndDisplay.textContent = totalPoints;
+                pointsPerExampleEndDisplay.textContent = pointsPerExample;
+                penaltyPointsEndDisplay.textContent = penaltyPoints;
+
+                totalPointsDisplay.textContent = totalPoints;
+                pointsPerExampleDisplay.textContent = pointsPerExample;
+                penaltyPointsDisplay.textContent = penaltyPoints;
+
+                dataSaved = false; // Сбрасываем флаг для новой игры
             }
 
-            // Обработчик события для кнопки "Посмотреть баллы"
             document.getElementById('restart_game').addEventListener('click', function () {
                 resetResults();
             });
 
-
-            // Создаем новый экземпляр MutationObserver
             const observer = new MutationObserver(function (mutationsList, observer) {
-                // Проверяем каждое изменение
                 mutationsList.forEach(function (mutation) {
-                    // Проверяем, изменилось ли содержимое элемента #right или #error
                     if (mutation.target.id === 'right' || mutation.target.id === 'error') {
-                        // Вызываем функцию обновления баллов
-                        updatePoints();
+                        const correctAnswersCount = parseInt(correctAnswersDisplay.textContent) || 0;
+                        const incorrectAnswersCount = parseInt(incorrectAnswersDisplay.textContent) || 0;
+
+                        if (correctAnswersCount !== 0 || incorrectAnswersCount !== 0) {
+                            dataSaved = false; // Сброс флага при изменении значений на ненулевые
+                            updatePoints();
+                        }
                     }
                 });
             });
 
-            // Наблюдаем за изменениями в #right и #error
             const targetNodes = document.querySelectorAll('#right, #error');
             targetNodes.forEach(function (node) {
-                observer.observe(node, {childList: true, subtree: true});
+                observer.observe(node, { childList: true, subtree: true });
             });
 
             function saveGameSettings() {
                 const actionCount = document.getElementById('action_count-input').value;
                 const speed = document.getElementById('speed-input').value;
                 const examples = document.getElementById('examples-input').value;
-                const gameName = 'multiplication'; // Убедитесь, что это поле существует и корректно
+                const gameName = 'multiplication';
 
-                // Получение CSRF-токена из мета-тега
                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-                // Отправка AJAX запроса на сервер с CSRF-токеном
                 const xhr = new XMLHttpRequest();
                 xhr.open('POST', '/save-game-settings', true);
                 xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken); // Устанавливаем CSRF-токен в заголовке запроса
+                xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === XMLHttpRequest.DONE) {
                         if (xhr.status === 200) {
-                            // Обработка успешного ответа
                             console.log('Game settings saved successfully!');
                         } else {
-                            // Обработка ошибки
                             console.error('Failed to save game settings!');
                         }
                     }
                 };
-                xhr.send(JSON.stringify({ actionCount, speed, examples, gameName }));
+                xhr.send(JSON.stringify({ actionCount, speed, examples, gameName, session_id: sessionId }));
             }
-
-
 
             function saveGameResults(gameName) {
                 const totalPoints = document.getElementById('total-points-end').textContent;
@@ -467,8 +462,9 @@
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                     },
                     body: JSON.stringify({
-                        score: totalPoints, // Заменил totalPoints на score
-                        game_name: gameName // Добавил game_name
+                        score: totalPoints,
+                        game_name: gameName,
+                        session_id: sessionId
                     })
                 })
                     .then(response => {
@@ -481,11 +477,7 @@
                     });
             }
 
-
-            // Начальное обновление баллов
             updatePoints();
         });
-
-
     </script>
 @endsection

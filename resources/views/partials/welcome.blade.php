@@ -9,6 +9,7 @@
 <div class="games">
     <div class="border_bals">
         <div class="game">
+            <button id="openModalBtn"><img src="{{asset('storage/img/information.svg')}}" alt="Как играть"></button>
             <img src="{{asset('storage/img/Group 50.png')}}" alt="Флеш-анзан">
             <a href="{{route('flash-anzan')}}"><div class="btn_game">Флеш-анзан</div></a>
         </div>

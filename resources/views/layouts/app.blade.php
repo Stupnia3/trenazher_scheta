@@ -65,5 +65,7 @@
 </script>
 
 @yield('scripts')
+
+<script src="{{asset('js/modal.js')}}"></script>
 </body>
 </html>

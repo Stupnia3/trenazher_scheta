@@ -24,7 +24,8 @@
                     <form action="{{ route('uploadExcel') }}" method="POST" enctype="multipart/form-data"
                           id="excelForm" class="form_add_students">
                         @csrf
-                        <label for="filled-file" class="file-input-add btn-teacher add_students btn_add_students">Выбрать файл</label>
+                        <label for="filled-file" class="file-input-add btn-teacher add_students btn_add_students">Выбрать
+                            файл</label>
                         <input type="file" name="filled-file" id="filled-file" accept=".xlsx,.xls"
                                style="display: none">
                         <button type="submit" class="btn_submit_add">Загрузить заполненный Excel</button>
@@ -42,25 +43,9 @@
                     @endif
 
                 </div>
-                <h2>Список файлов</h2>
-                @if ($files->isEmpty())
-                    <p>У вас пока нет загруженных файлов.</p>
-                @else
-                <ul>
-                    @foreach ($files as $file)
-                        <li>
-                            <a href="{{ route('downloadFile', $file->id) }}">{{ $file->name }}</a>
-                        </li>
-                    @endforeach
-                </ul>
-                @endif
-            </div>
-            @if ($students->isEmpty())
-                <div class="table_container">
+                @if ($students->isEmpty())
                     <p>У вас пока нет учеников.</p>
-                </div>
-            @else
-                <div class="table_container">
+                @else
                     <table class="all_students_table">
                         <thead>
                         <tr>
@@ -76,7 +61,7 @@
                         </thead>
                         <tbody>
                         @foreach ($students as $student)
-                            <tr id="student-row-{{$student->id}}">
+                            <tr id="student-row-{{$student->id}}" onclick="window.location.href='{{ route('student.games', $student->id) }}'">
                                 <td>
                                     <div class="flex">
                                         <div class="avatar_img avatar_profile avatar_student">
@@ -93,11 +78,11 @@
                                 </span>
 
                                 </td>
-                                <td>{{ $student->flash_anzan_score }}</td>
-                                <td>{{ $student->flash_cards_score }}</td>
-                                <td>{{ $student->division_score }}</td>
-                                <td>{{ $student->multiplication_score }}</td>
-                                <td>{{ $student->columns_score }}</td>
+                                <td>{{ $student->total_score_flash_anzan }}</td>
+                                <td>{{ $student->total_score_flash_cards }}</td>
+                                <td>{{ $student->total_score_division }}</td>
+                                <td>{{ $student->total_score_multiplication }}</td>
+                                <td>{{ $student->total_score_columns }}</td>
                                 <td>
                                     <div class="flex">
                                         <form class="toggle-activation-form">
@@ -125,8 +110,20 @@
                         @endforeach
                         </tbody>
                     </table>
-                </div>
-            @endif
+                @endif
+                <h2>Список файлов</h2>
+                @if ($files->isEmpty())
+                    <p>У вас пока нет загруженных файлов.</p>
+                @else
+                    <ul>
+                        @foreach ($files as $file)
+                            <li>
+                                <a href="{{ route('downloadFile', $file->id) }}">{{ $file->name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+            </div>
         </div>
     </section>
 

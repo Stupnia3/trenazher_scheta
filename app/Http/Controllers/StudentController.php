@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\GameSettings;
 use App\Models\Student;
 use App\Models\User;
 use App\Models\GameResult;
@@ -142,5 +143,32 @@ class StudentController extends Controller
     private function getGameScore($userId, $gameName)
     {
         return GameResult::where('user_id', $userId)->where('game_name', $gameName)->sum('score');
+    }
+    public function showGames($id)
+    {
+        $student = User::findOrFail($id);
+
+        // Получаем игры и их настройки по типам
+        $flashAnzanSettings = GameSettings::where('user_id', $id)->where('game_name', 'flash-anzan')->orderBy('created_at', 'desc')->get();
+        $flashAnzanResults = GameResult::where('user_id', $id)->where('game_name', 'flash-anzan')->orderBy('created_at', 'desc')->get();
+
+        $flashCardsSettings = GameSettings::where('user_id', $id)->where('game_name', 'flash-cards')->orderBy('created_at', 'desc')->get();
+        $flashCardsResults = GameResult::where('user_id', $id)->where('game_name', 'flash-cards')->orderBy('created_at', 'desc')->get();
+
+        $divisionSettings = GameSettings::where('user_id', $id)->where('game_name', 'division')->orderBy('created_at', 'desc')->get();
+        $divisionResults = GameResult::where('user_id', $id)->where('game_name', 'division')->orderBy('created_at', 'desc')->get();
+
+        $multiplicationSettings = GameSettings::where('user_id', $id)->where('game_name', 'multiplication')->orderBy('created_at', 'desc')->get();
+        $multiplicationResults = GameResult::where('user_id', $id)->where('game_name', 'multiplication')->orderBy('created_at', 'desc')->get();
+
+        $columnsResults = GameResult::where('user_id', $id)->where('game_name', 'columns')->orderBy('created_at', 'desc')->get();
+
+        return view('teacher.games', compact(
+            'student',
+            'flashAnzanSettings', 'flashAnzanResults',
+            'flashCardsSettings', 'flashCardsResults',
+            'divisionSettings', 'divisionResults',
+            'multiplicationSettings', 'multiplicationResults', 'columnsResults'
+        ));
     }
 }

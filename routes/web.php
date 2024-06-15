@@ -89,6 +89,8 @@ Route::middleware(['auth', TeacherMiddleware::class])->group(function () {
     Route::post('/uploadExcel', [\App\Http\Controllers\TeacherController::class, 'uploadExcel'])->name('uploadExcel');
     Route::get('/downloadStudents', 'App\Http\Controllers\TeacherController@downloadStudents')->name('download.students');
     Route::get('/download-file/{file}', 'App\Http\Controllers\TeacherController@download')->name('downloadFile');
+
+    Route::get('/student/{id}/games', [\App\Http\Controllers\StudentController::class, 'showGames'])->name('student.games');
 });
 
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {

@@ -78,6 +78,11 @@ class User extends Authenticatable
         'profile_image',
         'status',
         'login',
+        'total_score_flash-anzan',
+        'total_score_flash-cards',
+        'total_score_division',
+        'total_score_multiplication',
+        'total_score_columns',
     ];
 
     /**

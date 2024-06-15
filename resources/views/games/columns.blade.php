@@ -7,14 +7,36 @@
 @section('content')
     <section class="training">
         <div class="profile_block">
+            <button id="openModalBtn" class="btn-teacher">Как играть</button>
+            <!-- Руководство пользователя -->
+            <div id="modal" class="user_guide modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h4>Как играть:</h4>
+                    <p>В этой игре на экране будут появляться числа, и ваша задача — посчитать их сумму.</p>
+                    <p>В настройках игры доступны три параметра:</p>
+                    <ul>
+                        <li><strong>Количество действий:</strong> количество чисел, которые будут появляться на
+                            экране и которые необходимо будет сложить.
+                        </li>
+                        <li><strong>Скорость:</strong> время, в течение которого каждое число будет отображаться
+                            на экране.
+                        </li>
+                        <li><strong>Количество примеров:</strong> количество игровых сессий без перезапуска
+                            игры.
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <div class="training_wrapper">
-                <div class="training_start">
+                <div class="training_start training_start_columns">
                     <h1 class="page_title border_bals">
                         <div class="game">Столбцы</div>
                     </h1>
                     <div id="settings">
                         <label for="numColumns">Выберите количество столбцов: </label>
-                        <select id="numColumns">
+                        <select id="numColumns"
+                                class="training_counter-input input input_setting input_setting_columns">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -26,19 +48,29 @@
                             <option value="9">9</option>
                             <option value="10">10</option>
                         </select>
-                        <button id="startButton" onclick="startGame()">Начать</button>
+                        <button class="training_button start btn-student" id="startButton" onclick="startGame()">
+                            Начать
+                        </button>
                     </div>
 
-                    <div class="container" id="gameContainer"></div>
-                    <button id="submitButton" style="display:none;" onclick="checkAnswers()">Проверить</button>
+                    <div class="" id="gameContainer"></div>
+                    <button class="training_button details btn-student" id="submitButton"
+                            style="display:none; width: 100%; margin-top: 40px" onclick="checkAnswers()">Ответить
+                    </button>
                 </div>
 
                 <div id="gameResults" style="display:none;">
-                    <h2>Результаты игры:</h2>
-                    <p>Правильные ответы: <span id="correctAnswersCount">0</span></p>
-                    <p>Количество неправильных ответов: <span id="incorrectAnswersCount">0</span></p>
-                    <p id="resetMessage" style="display:none;">Игра сброшена. Начните заново.</p>
-                    <button id="resetButton" style="display:none;" onclick="resetGame()">Сбросить игру</button>
+                    <div class="training_details_columns">
+                        <div class="training_points">
+                            <h3 class="training_setting-title">Итоговые баллы</h3>
+                            <p id="correctAnswersCount">0</p>
+                        </div>
+                        <div class="training_points">
+                            <h3 class="training_setting-title">Штраф за неправильный пример</h3>
+                            <p id="incorrectAnswersCount">0</p>
+                        </div>
+                    </div>
+                    <button id="resetButton" style="display:none;" onclick="resetGame()" class="training_button restart">Заново</button>
                 </div>
             </div>
         </div>
@@ -72,7 +104,7 @@
 
                 let answerInput = document.createElement('input');
                 answerInput.type = 'number';
-                answerInput.className = 'answer';
+                answerInput.className = 'answer column_answer';
                 column.appendChild(answerInput);
 
                 container.appendChild(column);
@@ -124,16 +156,16 @@
         }
 
         function displayCorrectAnswer(column, expression) {
-            let correctAnswerDisplay = document.createElement('div');
-            correctAnswerDisplay.className = 'solution';
-            column.appendChild(correctAnswerDisplay);
+            // let correctAnswerDisplay = document.createElement('div');
+            // correctAnswerDisplay.className = 'solution';
+            // column.appendChild(correctAnswerDisplay);
         }
 
         function displayIncorrectAnswer(column, correctSum, expression) {
             let existingAnswerDisplay = column.querySelector('.solution');
             if (!existingAnswerDisplay) {
                 let correctAnswerDisplay = document.createElement('div');
-                correctAnswerDisplay.textContent = `Правильный результат: ${expression}`;
+                correctAnswerDisplay.textContent = `${expression}`;
                 correctAnswerDisplay.className = 'solution';
                 column.appendChild(correctAnswerDisplay);
             }
@@ -142,15 +174,23 @@
         function displayGameResults(correctAnswers, incorrectAnswersCount) {
             document.getElementById('gameResults').style.display = 'block';
             document.getElementById('correctAnswersCount').textContent = correctAnswers;
-            document.getElementById('incorrectAnswersCount').textContent = -incorrectAnswersCount;
+            document.getElementById('incorrectAnswersCount').textContent = incorrectAnswersCount;
 
-            document.getElementById('resetMessage').style.display = 'block';
             document.getElementById('resetButton').style.display = 'block';
 
-            saveGameResults('columns', correctAnswers - incorrectAnswersCount);
+            const sessionId = generateUUID();
+
+            function generateUUID() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            }
+
+            saveGameResults('columns', correctAnswers - incorrectAnswersCount, sessionId);
         }
 
-        function saveGameResults(gameName, score) {
+        function saveGameResults(gameName, score, sessionId) {
             fetch('{{ route('save-game-results') }}', {
                 method: 'POST',
                 headers: {
@@ -159,7 +199,8 @@
                 },
                 body: JSON.stringify({
                     game_name: gameName,
-                    score: score
+                    score: score,
+                    session_id: sessionId
                 })
             })
                 .then(response => response.json())
@@ -176,7 +217,6 @@
             let currentNumColumns = parseInt(numColumnsSelect.value, 10); // Сохраняем текущее количество столбцов
 
             document.getElementById('gameResults').style.display = 'none';
-            document.getElementById('resetMessage').style.display = 'none';
             document.getElementById('resetButton').style.display = 'none';
 
             document.getElementById('correctAnswersCount').textContent = '0';
