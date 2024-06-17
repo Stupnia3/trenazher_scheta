@@ -35,8 +35,8 @@
                     <button type="submit" class="btn-green"><p>Подтвердить</p></button>
                 </form>
             </div>
-            <div class="return-button">
-                <a href="/"> < Вернуться назад</a>
+            <div class="btn-teacher" style="margin-top: 20px; width: 100%;">
+                <a href="/" style="font-size: 20px; font-weight: 900; line-height: 25px; text-align: center; color: rgba(255, 255, 255, 1); text-shadow: rgba(0, 0, 0, 0.2) 0 2px 3px; text-transform: uppercase;">Вернуться назад</a>
             </div>
 
         </div>
