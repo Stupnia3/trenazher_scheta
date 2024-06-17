@@ -61,8 +61,8 @@
                         </thead>
                         <tbody>
                         @foreach ($students as $student)
-                            <tr id="student-row-{{$student->id}}" onclick="window.location.href='{{ route('student.games', $student->id) }}'">
-                                <td>
+                            <tr id="student-row-{{$student->id}}">
+                                <td onclick="window.location.href='{{ route('student.games', $student->id) }}'">
                                     <div class="flex">
                                         <div class="avatar_img avatar_profile avatar_student">
                                             <img src="{{ asset('storage/avatars/' . $student->profile_image) }}"
