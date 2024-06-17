@@ -250,8 +250,8 @@
 }
 
 .training_abakus {
-    width: 100px;
-    height: auto
+    height: 100px !important;
+    width: auto !important;
 }
 
 .training_label {
@@ -303,7 +303,8 @@
     display: none;
     align-items: center;
     justify-content: center;
-    rotate: -90deg;
+    height: 250px !important;
+    width: auto !important;
 }
 
 .training_result {

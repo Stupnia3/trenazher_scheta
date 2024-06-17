@@ -14,39 +14,42 @@
                                                               alt="Добавить ученика"></a>
             </div>
             <div class="table_container">
+
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {!! session('success') !!}
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <!-- Добавляем кнопку для загрузки шаблона Excel файла -->
                 <div class="add_students_form flex">
 
-                    <a href="{{ route('downloadTemplate') }}" class="btn-student add_students">Скачать шаблон
+                    <a href="{{ route('downloadTemplate') }}" class="restart add_students">Скачать шаблон
                         Excel</a>
 
                     <!-- Добавляем кнопку для загрузки заполненного Excel файла -->
                     <form action="{{ route('uploadExcel') }}" method="POST" enctype="multipart/form-data"
                           id="excelForm" class="form_add_students">
                         @csrf
-                        <label for="filled-file" class="file-input-add btn-teacher add_students btn_add_students">Выбрать
-                            файл</label>
-                        <input type="file" name="filled-file" id="filled-file" accept=".xlsx,.xls"
-                               style="display: none">
-                        <button type="submit" class="btn_submit_add">Загрузить заполненный Excel</button>
+                        <div class="flex-column d-flex">
+                            <label for="filled-file" class="file-input-add btn-teacher add_students btn_add_students">Выбрать
+                                файл</label>
+                            <input type="file" name="filled-file" id="filled-file" accept=".xlsx,.xls"
+                                   style="display: none" onchange="updateFileName()">
+                            <span id="file-name" style="margin-left: 10px;"></span>
+                        </div>
+                        <button type="submit" class="btn-student add_students">Загрузить заполненный Excel</button>
                     </form>
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            {!! session('success') !!}
-                        </div>
-                    @endif
-
-                    @if(session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-
                 </div>
                 @if ($students->isEmpty())
                     <p>У вас пока нет учеников.</p>
                 @else
-                    <table class="all_students_table">
+                    <table id="studentsTable" class="all_students_table">
                         <thead>
                         <tr>
                             <th>Пользователь</th>
@@ -62,7 +65,7 @@
                         <tbody>
                         @foreach ($students as $student)
                             <tr id="student-row-{{$student->id}}">
-                                <td onclick="window.location.href='{{ route('student.games', $student->id) }}'">
+                                <td class="cursor-pointer" onclick="window.location.href='{{ route('student.games', $student->id) }}'">
                                     <div class="flex">
                                         <div class="avatar_img avatar_profile avatar_student">
                                             <img src="{{ asset('storage/avatars/' . $student->profile_image) }}"
@@ -111,23 +114,71 @@
                         </tbody>
                     </table>
                 @endif
-                <h2>Список файлов</h2>
+                <h1>Список файлов</h1>
+
                 @if ($files->isEmpty())
                     <p>У вас пока нет загруженных файлов.</p>
                 @else
-                    <ul>
-                        @foreach ($files as $file)
-                            <li>
-                                <a href="{{ route('downloadFile', $file->id) }}">{{ $file->name }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
+                    <button id="toggle-files-btn" class="btn-teacher add_students toggle-table-btn" onclick="toggleFiles()">Показать
+                        список файлов
+                    </button>
+                    <div id="files-list" style="display: none;">
+                        <ul>
+                            @foreach ($files as $file)
+                                <li>
+                                    <a href="{{ route('downloadFile', $file->id) }}">{{ $file->name }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 @endif
             </div>
         </div>
     </section>
 
     <script>
+        $(document).ready(function() {
+            $('#studentsTable th').on('click', function() {
+                var table = $(this).parents('table').eq(0);
+                var rows = table.find('tr:gt(0)').toArray().sort(compare($(this).index()));
+                this.asc = !this.asc;
+                if (!this.asc) { rows = rows.reverse(); }
+                table.children('tbody').empty().html(rows);
+                updateSortClasses(table, $(this));
+            });
+
+            function compare(index) {
+                return function(a, b) {
+                    var valA = getCellValue(a, index), valB = getCellValue(b, index);
+                    return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB);
+                };
+            }
+
+            function getCellValue(row, index) {
+                return $(row).children('td').eq(index).text();
+            }
+
+            function updateSortClasses(table, header) {
+                table.find('th').removeClass('sort-asc sort-desc');
+                header.addClass(header[0].asc ? 'sort-asc' : 'sort-desc');
+            }
+        });
+    </script>
+    <script>
+        function toggleFiles() {
+            var filesList = document.getElementById('files-list');
+            var toggleButton = document.getElementById('toggle-files-btn');
+
+            // Проверяем текущее состояние видимости списка файлов
+            if (filesList.style.display === 'none') {
+                filesList.style.display = 'block'; // Показываем список
+                toggleButton.textContent = 'Скрыть список файлов'; // Меняем текст кнопки
+            } else {
+                filesList.style.display = 'none'; // Скрываем список
+                toggleButton.textContent = 'Показать список файлов'; // Меняем текст кнопки
+            }
+        }
+
         function toggleActivation(event, userId) {
             event.preventDefault();
 
@@ -215,6 +266,24 @@
 
         function uploadFilled() {
             document.querySelector('form[action="{{ route('uploadExcel') }}"]').submit();
+        }
+    </script>
+
+
+    <script>
+        function updateFileName() {
+            // Получаем элемент input с типом file
+            var fileInput = document.getElementById('filled-file');
+            // Получаем элемент span для отображения имени файла
+            var fileNameSpan = document.getElementById('file-name');
+            // Проверяем, выбран ли файл и есть ли у него имя
+            if (fileInput.files.length > 0) {
+                var fileName = fileInput.files[0].name; // Получаем имя файла
+                fileNameSpan.textContent = 'Выбран файл: ' + fileName; // Обновляем текст элемента span
+            } else {
+                fileNameSpan.textContent = ''; // Если файл не выбран, очищаем текст
+            }
+            console.log(fileNameSpan)
         }
     </script>
 @endsection

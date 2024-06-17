@@ -115,11 +115,10 @@ class StudentController extends Controller
     // Добавляем новый метод для страницы рейтинга
     public function ratingPage()
     {
-        $students = $this->getStudentsWithGameScores(User::whereRole('student')->paginate(10));
+        $students = $this->getStudentsWithGameScores(User::whereRole('student')->get());
 
         return view('rating_page', ['students' => $students]);
     }
-
     // Метод loadAllStudents остается без изменений
     public function loadAllStudents()
     {

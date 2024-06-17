@@ -13,19 +13,37 @@
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <h4>Как играть:</h4>
-                    <p>В этой игре на экране будут появляться числа, и ваша задача — посчитать их сумму.</p>
+                    <p>Перед началом игры нужно выбрать подходящие настройки</p>
                     <p>В настройках игры доступны три параметра:</p>
-                    <ul>
-                        <li><strong>Количество действий:</strong> количество чисел, которые будут появляться на
-                            экране и которые необходимо будет сложить.
+                    <ul style="list-style: inside; display: flex; flex-direction: column; gap: 20px;">
+                        <li><strong>Количество действий:</strong> <strong style="color: #1c7430; text-decoration: underline;">количество чисел</strong>, которые будут появляться на
+                            экране и которые необходимо будет умножить (от 2 до 3 чисел).
                         </li>
-                        <li><strong>Скорость:</strong> время, в течение которого каждое число будет отображаться
-                            на экране.
+                        <img class="info_img" src="{{asset('storage/img/browser_w4qSaZrVSK.png')}}" alt="Количество действий">
+                        <li><strong>Скорость:</strong> <strong style="color: #1c7430; text-decoration: underline;">время</strong>, в течение которого каждое число будет отображаться
+                            на экране (от 1 до 4 секунд).
                         </li>
-                        <li><strong>Количество примеров:</strong> количество игровых сессий без перезапуска
+                        <img class="info_img" src="{{asset('storage/img/browser_aO17hH8CtU.png')}}" alt="Скорость">
+                        <li><strong>Количество примеров:</strong> <strong style="color: #1c7430; text-decoration: underline;">количество игр</strong> которые будут продолжаться без перезапуска
                             игры.
                         </li>
+                        <img class="info_img" src="{{asset('storage/img/browser_cfrlK06jCn.png')}}" alt="Количество примеров">
                     </ul>
+                    <p>От скорости показа числа формируются баллы за правильный пример и баллы за штрафной пример:</p>
+                    <img class="info_img" src="{{asset('storage/img/browser_TEwtXO9DIQ.png')}}" alt="баллы за правильный пример и баллы за штрафной пример">
+                    <p>От кол-ва действий формируются итоговые баллы за все правильно решенные примеры:</p>
+                    <img class="info_img" src="{{asset('storage/img/browser_fX2kQHOCfK.png')}}" alt="Количество действий">
+                    <p>После выбора нужных настроек необходимо нажать <strong style="color: #1c7430; text-decoration: underline;">зеленую</strong> кнопку начать</p>
+                    <p>Далее начнется игра и на экране будут отображаться поочередно числа (предел от -10 до 10). Цель <strong style="color: #1c7430; text-decoration: underline;">умножить</strong> показанные числа.</p>
+                    <p>Когда все числа отобразятся появиться поле ввода, в него необходимо написать результат, который игрок получил в ходе деления первого числа на второе.</p>
+                    <img class="info_img" src="{{asset('storage/img/7ba84d11-6ab9-4c17-879e-a59c7fc95e7e.png')}}" alt="Количество действий">
+                    <p>Когда игрок напишет число которое он получил, необходимо нажать кнопку "Готово".</p>
+                    <p>В конце игры отобразятся кол-во правильных ответов и неправильных. Для того чтобы узнать более точную информацию о результатах нужно нажать кнопку "Подробнее".</p>
+                    <img class="info_img" src="{{asset('storage/img/browser_G6OT71fQQ8.png')}}" alt="Количество действий">
+                    <p>При наведении на ответ сверху появиться окно, где отображены числа за игру, исходя из которых вышел правильный ответ.</p>
+                    <img class="info_img" src="{{asset('storage/img/browser_fy3oENo8CC.png')}}" alt="Количество действий">
+                    <p>Игру можно начать заново с выбором других настроек, для этого нужно нажать на кнопку "Заново".</p>
+                    <img class="info_img" src="{{asset('storage/img/browser_1J9ZmddllG.png')}}" alt="Количество действий">
                 </div>
             </div>
             <div class="training_wrapper">

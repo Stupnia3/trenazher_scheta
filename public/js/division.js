@@ -120,7 +120,7 @@ class Train {
                 value: 1,
                 min: 0.4,
                 max: 4,
-                step: 0.1,
+                step: 1,
                 input: "input",
                 type: "float",
                 inputEl: document.querySelector('#speed-input')

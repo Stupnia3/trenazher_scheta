@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Главная страница
+    Учитель | Личный кабинет
 @endsection
 
 @section('content')

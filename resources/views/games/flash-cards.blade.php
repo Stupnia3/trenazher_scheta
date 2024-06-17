@@ -13,19 +13,34 @@
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <h4>Как играть:</h4>
-                    <p>В этой игре на экране будут появляться числа, и ваша задача — посчитать их сумму.</p>
-                    <p>В настройках игры доступны три параметра:</p>
-                    <ul>
-                        <li><strong>Количество действий:</strong> количество чисел, которые будут появляться на
-                            экране и которые необходимо будет сложить.
+                    <p>Перед началом игры нужно выбрать подходящие настройки</p>
+                    <p>В настройках игры доступны два параметра:</p>
+                    <ul style="list-style: inside; display: flex; flex-direction: column; gap: 20px;">
+                        <li><strong>Скорость:</strong> <strong style="color: #1c7430; text-decoration: underline;">время</strong>, в течение которого каждое число будет отображаться
+                            на экране (от 2 до 10 секунд).
                         </li>
-                        <li><strong>Скорость:</strong> время, в течение которого каждое число будет отображаться
-                            на экране.
+                        <img class="info_img" src="{{asset('storage/img/browser_aO17hH8CtU.png')}}" alt="Скорость">
+                        <li><strong>Количество примеров:</strong> <strong style="color: #1c7430; text-decoration: underline">количество игр</strong> которые будут продолжаться без перезапуска игры.
                         </li>
-                        <li><strong>Количество примеров:</strong> количество игровых сессий без перезапуска
-                            игры.
-                        </li>
+                        <img class="info_img" src="{{asset('storage/img/browser_cfrlK06jCn.png')}}" alt="Количество примеров">
                     </ul>
+                    <p>От скорости показа числа формируются баллы за правильный пример и баллы за штрафной пример:</p>
+                    <img class="info_img" src="{{asset('storage/img/browser_TEwtXO9DIQ.png')}}" alt="баллы за правильный пример и баллы за штрафной пример">
+                    <p>От кол-ва действий формируются итоговые баллы за все правильно решенные примеры:</p>
+                    <img class="info_img" src="{{asset('storage/img/browser_fX2kQHOCfK.png')}}" alt="Количество действий">
+                    <p>После выбора нужных настроек необходимо нажать <strong style="color: #1c7430; text-decoration: underline;">зеленую</strong> кнопку начать</p>
+                    <p>Далее начнется игра и на экране будут отображаться поочередно карты.</p>
+                    <p>На карте слева отделенная перегородкой является числом 5. Справа 4 счета и каждая является единицей.</p>
+                    <img class="info_img" src="{{asset('storage/img/browser_8G395rXPHe.png')}}" alt="Количество действий">
+                    <p>Цель: посчитать чему равна карта и написать ответ.</p>
+                    <p>Когда все числа отобразятся появиться поле ввода, в него необходимо написать результат, который игрок получил в ходе сложения всех показанных чисел.</p>
+                    <img class="info_img" src="{{asset('storage/img/7ba84d11-6ab9-4c17-879e-a59c7fc95e7e.png')}}" alt="Количество действий">
+                    <p>Когда игрок напишет число которое он посчитал, необходимо нажать кнопку "Готово".</p>
+                    <p>В конце игры отобразятся кол-во правильных ответов и неправильных. Для того чтобы узнать более точную информацию о результатах нужно нажать кнопку "Подробнее".</p>
+                    <img class="info_img" src="{{asset('storage/img/browser_G6OT71fQQ8.png')}}" alt="Количество действий">
+                    <p>При наведении на ответ сверху появиться окно, где отображены карты за всю игру, исходя из которых вышел правильный ответ.</p>
+                    <img class="info_img" src="{{asset('storage/img/browser_8Jvg4cxwl0.png')}}" alt="Количество действий">
+                    <p>Игру можно начать заново с выбором других настроек, для этого нужно нажать на кнопку "Заново".</p>
                 </div>
             </div>
             <div class="training_wrapper">
@@ -213,7 +228,7 @@
                         </div>
                     </div>
                     <button class="training_button details btn-student" id="show-points">Посмотреть баллы</button>
-                    <div class="training_details">
+                    <div class="training_details flesh_cards_training_details">
                         <div class="training_points">
                             <h3 class="training_setting-title">Итоговые баллы</h3>
                             <p id="total-points-end">0</p>

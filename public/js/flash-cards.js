@@ -311,7 +311,7 @@ class Train {
                 for (let i = 0; i < this.setting.action_count.value; i += 8) {
                     digs += '<tr>'
                     this.numbers_array[ind].slice(i, i + 8).forEach(el1 => {
-                        digs += `<td><img src="${this.img_path + el1}.svg" width="59" height="180" class="training_abakus" alt="${el1}"></td>`
+                        digs += `<td><img src="${this.img_path + el1}.svg" width="245" height="45" class="training_abakus" alt="${el1}"></td>`
                     })
                     digs += '</tr>'
                 }
@@ -354,7 +354,7 @@ class Train {
         num = num.toString();
         let code = ''
         for (let i = 0; i < num.length; i++) {
-            code += `<img src="${this.img_path + num[i]}.svg" width="59" height="180" class="training_abakus">`
+            code += `<img src="${this.img_path + num[i]}.svg" width="245" height="45" class="training_abakus">`
         }
         this.imgs_container.innerHTML = code
     }

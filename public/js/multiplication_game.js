@@ -110,7 +110,7 @@ class Train {
             action_count: {
                 value: 2,
                 min: 2,
-                max: null,
+                max: 3,
                 input: "input",
                 type: "int",
                 step: 1,

@@ -47,7 +47,6 @@
                         @endforeach
                         </tbody>
                     </table>
-                    {{ $students->links() }}
                 @endif
             </div>
         </div>

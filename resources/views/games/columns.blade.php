@@ -13,19 +13,21 @@
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <h4>Как играть:</h4>
-                    <p>В этой игре на экране будут появляться числа, и ваша задача — посчитать их сумму.</p>
-                    <p>В настройках игры доступны три параметра:</p>
-                    <ul>
-                        <li><strong>Количество действий:</strong> количество чисел, которые будут появляться на
-                            экране и которые необходимо будет сложить.
-                        </li>
-                        <li><strong>Скорость:</strong> время, в течение которого каждое число будет отображаться
-                            на экране.
-                        </li>
-                        <li><strong>Количество примеров:</strong> количество игровых сессий без перезапуска
-                            игры.
-                        </li>
-                    </ul>
+                    <p>Перед началом игры нужно выбрать кол-во столбцов, которые будут сгенерированы:</p>
+                    <img class="info_img" src="{{asset('storage/img/browser_hN3bnzMqFp.png')}}" alt="Количество столбцов">
+                    <p>После выбора кол-ва столбцов нужно нажать <strong style="color: #1c7430; text-decoration: underline;">Начать</strong>.</p>
+                    <p>Время в игре не ограничено, поэтому можно решать сколько угодно.</p>
+                    <p>Цель: посчитать сумму чисел сгенерированных в столбце:</p>
+                    <img class="info_img" src="{{asset('storage/img/browser_Mvj9YfaXzh.png')}}" alt="Количество столбцов">
+                    <p>В зависимости от кол-ва правильно и неправильно решенных столбцов зависят итоговые баллы.</p>
+                    <p>После решения всех столбцов и написания ответов нужно нажать кнопку <strong style="color: #1c7430; text-decoration: underline;">Ответить</strong>.</p>
+                    <p>Правильные ответы считаются за <strong style="color: #1c7430; text-decoration: underline;">+1</strong> балл, в то время как неправильные <strong style="color: #741c1c; text-decoration: underline;">-1</strong> балл.</p>
+                    <p>Когда столбец решен правильно ответ выделяется <strong style="color: #1c7430; text-decoration: underline;">зеленым</strong>:</p>
+                    <img class="info_img" src="{{asset('storage/img/browser_Z2zmNulhWA.png')}}" alt="Количество столбцов">
+                    <p>Когда столбец решен не правильно ответ выделяется <strong style="color: #741C1CFF; text-decoration: underline;">красным</strong>, а также под ответом пишется правильное решения столбика:</p>
+                    <img class="info_img" src="{{asset('storage/img/browser_ZCG9meBihU.png')}}" alt="Количество столбцов">
+                    <p>Если в столбце ответ не написан, то он автоматически считается за <strong style="color: #741C1CFF; text-decoration: underline;">неправильный</strong>.</p>
+                    <p>Игру можно начать заново с выбором других настроек, для этого нужно нажать на кнопку "Заново".</p>
                 </div>
             </div>
             <div class="training_wrapper">
