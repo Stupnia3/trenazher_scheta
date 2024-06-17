@@ -78,7 +78,6 @@
                 <table id="division-table" class="table game-table all_students_table" style="display: none;">
                     <thead>
                     <tr>
-                        <th>Кол-во действий</th>
                         <th>Скорость</th>
                         <th>Кол-во примеров</th>
                         <th>Результат (баллы)</th>
@@ -93,7 +92,6 @@
                             });
                         @endphp
                         <tr>
-                            <td>{{ $setting->action_count }}</td>
                             <td>{{ $setting->speed }}</td>
                             <td>{{ $setting->examples }}</td>
                             <td>{{ $result ? $result->score : 'N/A' }}</td>

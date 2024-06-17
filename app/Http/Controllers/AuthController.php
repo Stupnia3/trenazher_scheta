@@ -28,7 +28,7 @@ class AuthController extends Controller
             return redirect()->route('home'); // Вход выполнен успешно
         }
 
-        return redirect()->back()->with('error', 'Неправильная почта или пароль');
+        return redirect()->back()->with('error', 'Неправильный логин или пароль');
     }
 
     public function logout()

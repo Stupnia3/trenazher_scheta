@@ -361,9 +361,9 @@
 
                 if (!dataSaved && (correctAnswersCount !== 0 || incorrectAnswersCount !== 0)) {
                     const gameName = 'division';
+                    dataSaved = true;
                     saveGameSettings();
-                    saveGameResults(gameName);
-                    dataSaved = true; // Устанавливаем флаг после сохранения данных
+                    saveGameResults(gameName);// Устанавливаем флаг после сохранения данных
                 }
             }
 
